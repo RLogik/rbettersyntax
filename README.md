@@ -1,6 +1,16 @@
 # Package: rbettersyntax
 Verschafft Methoden für einfachere Syntax für die Sprache R.
 
+## Beispiele: get.pkgs
+
+```r
+rbettersyntax::get.pkgs(53,
+	'tidyverse',
+	list('clusterby', mode='github', lib='RLogik', force=TRUE),
+	list('cow_plot', dep=TRUE), # <- ja, ein trailing comma ist erlaubt!
+);
+```
+
 ## Beispiele: console.log
 
 ```r
@@ -15,11 +25,12 @@ Diese Methode stammt ursprünglich von [**flodel**](https://gist.github.com/flod
 ```r
 c <- rbettersyntax::ok.comma(base::c);
 list <- rbettersyntax::ok.comma(base::list);
+```
 
-f <- function(...) {
-	...
-};
-f <- rbettersyntax::ok.comma(f);
+oder einfach:
+
+```r
+rbettersyntax::ok.comma.standard();
 ```
 
 Unter diesen Definitionen kann man bspw.
@@ -27,15 +38,24 @@ Unter diesen Definitionen kann man bspw.
 ```r
 names <- c(
 	'Arthur',
-	'Lise',
+	'Lisette',
 	'Heike',
 	'Jonas',
-	'Christian',
+	'Christian', # <- jetzt brauchst du diese nicht nicht mehr zu löschen!
+	# 'Jannik',
 );
 ```
 
 schreiben, wie in den meisten Programmiersprachen.
 Damit muss man sich nicht mehr um das sogenannte „trailing comma“ Gedanken machen.
+Man kann auch `ok.comma` bei beliebigen Funktionen einsetzen.
+
+```r
+f <- function(x, ...) {
+	## Funktioninhalt
+};
+f <- rbettersyntax::ok.comma(f);
+```
 
 ## Beispiele: read.args
 
