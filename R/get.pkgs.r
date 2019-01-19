@@ -22,9 +22,13 @@ get.pkgs <- function(mirror=NULL, ...) {
 	len <- length(args);
 	if(len > 1L) {
 		last <- args[[len]];
-		if(missing(last)) args <- args[-len];
+		if(missing(last)) {
+			args <- args[-len];
+			return(do.call(get.pkgs, args));
+		}
 	}
-	args <- args[-1];
+
+	args <- list(...);
 
 	if(is.null(mirror)) {
 		chooseCRANmirror(graphics=FALSE);
@@ -33,15 +37,18 @@ get.pkgs <- function(mirror=NULL, ...) {
 	}
 
 	for(opt in args) {
-		pkg <- opt[1];
+		if(!is.list(opt)) opt <- list(opt);
+		pkg <- opt[[1]];
+		if(!is.character(pkg)) next;
 		if(require(pkg, character.only=TRUE)) next;
-		args <- as.list(opt);
-		mode <- rbettersyntax::read.args(args, 'mode', is.character, 'cran');
-		lib <- rbettersyntax::read.args(args, 'lib', is.character, '');
-		force <- rbettersyntax::read.args(args, 'force', is.logical, FALSE);
-		dep <- rbettersyntax::read.args(args, 'dep', is.logical, TRUE);
-		ver <- rbettersyntax::read.args(args, 'version', is.character, NULL);
-		stoponerror_ <- rbettersyntax::read.args(args, 'stop', is.logical, stoponerror);
+	
+		args_ <- as.list(opt);
+		mode <- rbettersyntax::read.args(args_, 'mode', is.character, 'cran');
+		lib <- rbettersyntax::read.args(args_, 'lib', is.character, '');
+		force <- rbettersyntax::read.args(args_, 'force', is.logical, FALSE);
+		dep <- rbettersyntax::read.args(args_, 'dep', is.logical, TRUE);
+		ver <- rbettersyntax::read.args(args_, 'version', is.character, NULL);
+		stoponerror_ <- rbettersyntax::read.args(args_, 'stop', is.logical, stoponerror);
 		if(mode == 'github') {
 			nom <- paste(c(lib, pkg), collapse='/');a
 			if(is.null(ver)) {
@@ -66,4 +73,6 @@ get.pkgs <- function(mirror=NULL, ...) {
 		if(stoponerror_) stop(paste0('Package ',pkg,' nicht gefunden!'));
 		cat('FEHLER: Package ',pkg,' nicht gefunden!');
 	}
+
+	return(TRUE);
 };

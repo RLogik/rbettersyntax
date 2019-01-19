@@ -6,5 +6,8 @@ Description: Allows syntax, available in normal languages, like Python, PHP, etc
 Depends: R (>= 3.4.0)
 License: open source.
 Encoding: UTF-8
+Imports:
+	base,
+	devtools
 LazyData: true
 RoxygenNote: 6.1.1

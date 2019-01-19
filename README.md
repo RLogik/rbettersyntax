@@ -7,7 +7,8 @@ Verschafft Methoden für einfachere Syntax für die Sprache R.
 rbettersyntax::get.pkgs(53,
 	'tidyverse',
 	list('clusterby', mode='github', lib='RLogik', force=TRUE),
-	list('cow_plot', dep=TRUE), # <- ja, ein trailing comma ist erlaubt!
+	list('cowplot', dep=TRUE), # <- ja, ein trailing comma ist erlaubt!
+	list('GenomicRanges', mode='biocmanager', version='3.5')
 );
 ```
 
