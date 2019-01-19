@@ -10,7 +10,7 @@ console.log(1, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
 
 ## Beispiele: ok.comma
 
-Dieses Package stammt ursprünglich von **flotta** und wurde leicht modifiziert, um endlose Schleifen zu vermeiden.
+Diese Methode stammt ursprünglich von [**flodel**](https://gist.github.com/flodel/5283216) und wurde von mir leicht modifiziert, um endlose Schleifen zu vermeiden.
 
 ```r
 c <- rbettersyntax::ok.comma(base::c);

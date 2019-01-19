@@ -1,6 +1,6 @@
 #' rbettersyntax | ok.comma
 #'
-#' Allow for simpler syntax in R. This method enables trailing commata.
+#' Allow for simpler syntax in R. This method enables trailing commata. Modification of flodel's method.
 #'
 #' \code{f <- ok.comma(f)}
 #'
