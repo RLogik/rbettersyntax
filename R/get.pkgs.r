@@ -48,7 +48,8 @@ get.pkgs <- function(mirror=NULL, ...) {
 		force <- rbettersyntax::read.args(args_, 'force', is.logical, FALSE);
 		dep <- rbettersyntax::read.args(args_, 'dep', is.logical, TRUE);
 		ver <- rbettersyntax::read.args(args_, 'version', is.character, NULL);
-		stoponerror_ <- rbettersyntax::read.args(args_, 'stop', is.logical, TRUE);
+		stoponerror <- rbettersyntax::read.args(args_, 'stop', is.logical, TRUE);
+
 		if(mode == 'github') {
 			nom <- paste(c(lib, pkg), collapse='/');a
 			if(is.null(ver)) {
@@ -70,7 +71,7 @@ get.pkgs <- function(mirror=NULL, ...) {
 			}
 		}
 		if(require(pkg, character.only=TRUE)) next;
-		if(stoponerror_) stop(paste0('Package ',pkg,' nicht gefunden!'));
+		if(stoponerror) stop(paste0('Package ',pkg,' nicht gefunden!'));
 		cat('FEHLER: Package ',pkg,' nicht gefunden!');
 	}
 
