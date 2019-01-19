@@ -1,4 +1,4 @@
-Package: RbetterSyntax
+Package: rbettersyntax
 Title: Simpler Syntax for R
 Version: 1.0.0
 Authors@R: person("R", "Logik", email = "r.bitlogik@gmail.com", role = c("aut", "cre"))
