@@ -42,7 +42,7 @@ names <- c(
 	'Lisette',
 	'Heike',
 	'Jonas',
-	'Christian', # <- jetzt brauchst du diese nicht nicht mehr zu löschen!
+	'Christian', # <- jetzt brauchst du dieses Komma nicht nicht mehr zu löschen!
 	# 'Jannik',
 );
 ```
