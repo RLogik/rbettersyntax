@@ -24,6 +24,7 @@ get.pkgs <- function(mirror=NULL, ...) {
 		last <- args[[len]];
 		if(missing(last)) args <- args[-len];
 	}
+	args <- args[-1];
 
 	if(is.null(mirror)) {
 		chooseCRANmirror(graphics=FALSE);
@@ -35,12 +36,12 @@ get.pkgs <- function(mirror=NULL, ...) {
 		pkg <- opt[1];
 		if(require(pkg, character.only=TRUE)) next;
 		args <- as.list(opt);
-		mode <- readinputvar(args, 'mode', is.character, 'cran');
-		lib <- readinputvar(args, 'lib', is.character, '');
-		force <- readinputvar(args, 'force', is.logical, FALSE);
-		dep <- readinputvar(args, 'dep', is.logical, TRUE);
-		ver <- readinputvar(args, 'version', is.character, NULL);
-		stoponerror_ <- readinputvar(args, 'stop', is.logical, stoponerror);
+		mode <- rbettersyntax::read.args(args, 'mode', is.character, 'cran');
+		lib <- rbettersyntax::read.args(args, 'lib', is.character, '');
+		force <- rbettersyntax::read.args(args, 'force', is.logical, FALSE);
+		dep <- rbettersyntax::read.args(args, 'dep', is.logical, TRUE);
+		ver <- rbettersyntax::read.args(args, 'version', is.character, NULL);
+		stoponerror_ <- rbettersyntax::read.args(args, 'stop', is.logical, stoponerror);
 		if(mode == 'github') {
 			nom <- paste(c(lib, pkg), collapse='/');a
 			if(is.null(ver)) {
