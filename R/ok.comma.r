@@ -21,13 +21,14 @@
 ok.comma <- function(f) {
 	FUN <- f;
 	return(function(...) {
+		env <- parent.frame();
 		args <- as.list(sys.call())[-1L];
 		len <- length(args);
 		if(len > 1L) {
 			last <- args[[len]];
 			if(missing(last)) args <- args[-len];
 		}
-		do.call(FUN, args);
+		do.call(FUN, args, envir=env);
 	});
 };
 
