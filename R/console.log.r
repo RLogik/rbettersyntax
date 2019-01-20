@@ -24,8 +24,11 @@ console.log <- function(...) {
 	INPUTARGS <- list(...);
 	silent.off <- INPUTARGS[['silent.off']];
 	if(!is.logical(silent.off)) silent.off <- TRUE;
-	if(silent.off) rsilent <- getOption('rbettersyntax::silent');
-	if(!is.logical(rsilent)) rsilent <- FALSE;
+	rsilent <-  FALSE;
+	if(silent.off) {
+		rsilent <- getOption('rbettersyntax::silent');
+		if(!is.logical(rsilent)) rsilent <- FALSE;
+	}
 	if(!rsilent) {
 		tabs <- INPUTARGS[['tabs']]; if(!is.numeric(tabs)) tabs <- 0;
 		tab.char <- INPUTARGS[['tab.char']]; if(!is.character(tab.char)) tab.char <- 0;
