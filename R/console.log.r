@@ -1,6 +1,6 @@
 #' rbettersyntax | console.log
 #'
-#' Allow for simpler syntax in R. Output messages to console
+#' Allow for simpler syntax in R. Output messages to console. Use \code{options(rbettersyntax::rmd=TRUE)} to disable console output from \code{menu(···)} in e. g. markdown mode.
 #'
 #' \code{console.log(tabs, m1, m2, ..)}
 #'
@@ -26,3 +26,13 @@ console.log <- function(tabs=0, ...) {
 		cat(tabs,s,'\n',sep='');
 	}
 };
+
+assign('menu', function(...) {
+	rmd_on <- getOption('rbettersyntax::rmd');
+	if(!is.logical(rmd_on)) rmd_on <- FALSE;
+	if(!rmd_on) {
+		args <- as.list(sys.call())[-1L];
+		env <- parent.frame();
+		do.call(base::menu, args, envir=env);
+	}
+}, .GlobalEnv);

@@ -10,7 +10,7 @@ sys.pause(t = NULL)
 \item{t}{non-negative double. Argument is optional. If \code{t} is set, then the script will be paused for \code{t} seconds. If it is not set, then a user key-response will be awaited.}
 }
 \description{
-Allow for simpler syntax in R. Method to pause execution.
+Allow for simpler syntax in R. Method to pause execution. Use \code{options(rbettersyntax::rmd=TRUE)} to disable all sys.pause commands in e. g. markdown mode.
 }
 \details{
 \code{sys.pause(* t)}
