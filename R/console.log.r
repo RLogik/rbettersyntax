@@ -32,7 +32,7 @@ console.log <- function(...) {
 	if(!rsilent) {
 		tabs <- INPUTARGS[['tabs']]; if(!is.numeric(tabs)) tabs <- 0;
 		tab.char <- INPUTARGS[['tab.char']]; if(!is.character(tab.char)) tab.char <- 0;
-		lines <- INPUTARGS[which(names(INPUTARGS) %in% c('tabs','tab.char','silent.off'))];
+		lines <- INPUTARGS[which(!(names(INPUTARGS) %in% c('tabs','tab.char','silent.off')))];
 		indent <- rep(tab.char, tabs);
 		for(s in lines) cat(c(indent,s,'\n'),sep='');
 	}
