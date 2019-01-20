@@ -1,6 +1,6 @@
 #' rbettersyntax | sys.pause
 #'
-#' Allow for simpler syntax in R. Method to pause execution. Use \code{options(rbettersyntax::silent=TRUE)} to disable all sys.pause commands in e. g. markdown mode.
+#' Allow for simpler syntax in R. Method to pause execution. Use \code{options('rbettersyntax::silent'=TRUE)} to disable all sys.pause commands in e. g. markdown mode.
 #'
 #' \code{sys.pause(* t)}
 #'

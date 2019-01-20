@@ -14,7 +14,7 @@ console.log(tabs = 0, ...)
 \item{m2}{similar. User can set 0 or more 'messages' to be printed in the console.}
 }
 \description{
-Allow for simpler syntax in R. Output messages to console. Use \code{options(rbettersyntax::rmd=TRUE)} to disable console output from \code{menu(···)} in e. g. markdown mode.
+Allow for simpler syntax in R. Output messages to console. Use \code{options('rbettersyntax::silent'=TRUE)} to disable console output.
 }
 \details{
 \code{console.log(tabs, m1, m2, ..)}

@@ -17,7 +17,6 @@ Allow for simpler syntax in R. This method enables trailing commata. Modificatio
 \code{ok.comma.standard()}
 }
 \examples{
-rbettersyntax::ok.comma.standard();
 c <- rbettersyntax::ok.comma(base::c);
 list <- rbettersyntax::ok.comma(base::list);
 myfun <- rbettersyntax::ok.comma(myfun);
