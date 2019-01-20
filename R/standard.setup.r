@@ -32,6 +32,7 @@ standard.setup <- function() {
 	menu <- function(...) {
 		rsilent <- getOption('rbettersyntax::silent');
 		if(!is.logical(rsilent)) rsilent <- FALSE;
+		print(c('Wert von rsilent: ',rsilent), collapse='\n');
 		if(rsilent) {
 			return(NULL);
 		} else {
