@@ -7,7 +7,6 @@
 #' @param t non-negative double. Argument is optional. If \code{t} is set, then the script will be paused for \code{t} seconds. If it is not set, then a user key-response will be awaited.
 #'
 #' @export sys.pause
-#' @export menu
 #'
 #' @examples sys.pause(); # pause until user presses any key.
 #' @examples sys.pause(0.5); # pause for 0.5 seconds

@@ -2,7 +2,6 @@
 
 export(console.log)
 export(get.pkgs)
-export(menu)
 export(ok.comma)
 export(read.args)
 export(standard.setup)
