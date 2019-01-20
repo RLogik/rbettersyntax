@@ -4,10 +4,14 @@
 \alias{console.log}
 \title{rbettersyntax | console.log}
 \usage{
-console.log(tabs = 0, ...)
+console.log(...)
 }
 \arguments{
-\item{tabs}{a non-negative integer. Number of tab sets to be produced on each new line.}
+\item{tabs}{a non-negative integer. Default \code{0}. Number of tab sets to be produced on each new line.}
+
+\item{tab.char}{character. Default \code{'  '}. This will be used as the indentation string.}
+
+\item{silent.off}{boolean. Default \code{FALSE}. If true, then no output will be shown under the option \code{'rbettersyntax::silent'=TRUE}.}
 
 \item{m1}{character string / vector of character strings. The strings will be concatenated with no spaces, prepended by tab stops and followed by a \code{'\n'} character.}
 
@@ -17,11 +21,11 @@ console.log(tabs = 0, ...)
 Allow for simpler syntax in R. Output messages to console. Use \code{options('rbettersyntax::silent'=TRUE)} to disable console output.
 }
 \details{
-\code{console.log(tabs, m1, m2, ..)}
+\code{console.log(tabs=tabs, tab.char=tab.char, silent.off=silent.off, m1, m2, ..)}
 }
 \examples{
-console.log(0, 'Test');
-console.log(1, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
+console.log(tabs=0, 'Test');
+console.log(tabs=1, silent.off=TRUE, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
 
 }
 \keyword{console}

@@ -11,9 +11,12 @@ der Methode `standard.setup` ermöglicht.
 options('rbettersyntax::silent'=TRUE);
 rbettersyntax::standard.setup(); # man braucht diese Zeile nur ein Mal im Code, am besten nachdem alle Packages geladen sind.
 
-menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## macht nichts.
-rbettersyntax::sys.pause(10); ## macht nichts.
-rbettersyntax::console.log(0,'Schritt I wird ausgeführt.'); ## macht nichts.
+menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## macht nichts
+rbettersyntax::sys.pause(); ## macht nichts
+rbettersyntax::sys.pause(10); ## funktioniert (weil keine User-Interaktion erforderlich)
+rbettersyntax::console.log(silent.off=FALSE,'Schritt I wird ausgeführt.'); ## funktioniert
+rbettersyntax::console.log('Schritt I wird ausgeführt.'); ## macht nichts
+rbettersyntax::console.log(silent.off=TRUE,'Schritt I wird ausgeführt.'); ## macht nichts
 ```
 
 ```r
@@ -21,7 +24,9 @@ options('rbettersyntax::silent'=FALSE); # oder die Option einfach nicht setzen.
 
 menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## funktioniert
 rbettersyntax::sys.pause(10); ## funktioniert
-rbettersyntax::console.log(0,'Schritt I wird ausgeführt.'); ## funktioniert
+rbettersyntax::console.log(silent.off=FALSE,'Schritt I wird ausgeführt.'); ## funktioniert
+rbettersyntax::console.log('Schritt I wird ausgeführt.'); ## funktioniert
+rbettersyntax::console.log(silent.off=TRUE,'Schritt I wird ausgeführt.'); ## funktioniert
 ```
 
 ## Beispiele: get.pkgs
@@ -38,8 +43,11 @@ rbettersyntax::get.pkgs(53,
 ## Beispiele: console.log
 
 ```r
-console.log(0, 'Starting code.');
-console.log(1, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
+console.log(tabs=0, tab.char='\t', 'Starting code.');
+console.log(tabs=0, silent.off=TRUE, 'Starting code.');
+console.log(tab.char='  ', silent.off=FALSE, 'Starting code.');
+## zwei Zeilen, die jeweils durch 3 Tabs eingerückt sind:
+console.log(tabs=3, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
 ```
 
 ## Beispiele: ok.comma

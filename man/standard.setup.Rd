@@ -6,16 +6,26 @@
 \usage{
 standard.setup()
 }
+\arguments{
+\item{options}{character string vector. As per the definition of base::menu}
+}
 \description{
 Provides standard ok.comma'd functions and enables via option a disabling of menu and sys.pause.
 }
 \details{
-\code{ok.comma.standard.setup()}
+\code{standard.setup()}
+\code{menu(options, title=title)}
 }
 \examples{
 options('rbettersyntax::silent'=TRUE);
-options('rbettersyntax::silent'=FALSE);
 rbettersyntax::standard.setup();
+menu(c('Yes','No'), title='Proceed with script?'); # will skip user interaction and return NULL.
+rbettersyntax::sys.pause(); # will skip user interaction proceed with code.
+rbettersyntax::sys.pause(1); # will still pause for 1s.
+rbettersyntax::console.log(tabs=0, 'My message.'); # will not display.
+rbettersyntax::console.log(tabs=0, silent.off=TRUE, 'My message.'); # will not display.
+rbettersyntax::console.log(tabs=0, silent.off=FALSE, 'My message.'); # will show.
+options('rbettersyntax::silent'=FALSE); # reactivates menu, sys.pause, console.log, etc.
 
 }
 \keyword{rbettersyntax}

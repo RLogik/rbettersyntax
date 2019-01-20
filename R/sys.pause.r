@@ -18,16 +18,15 @@
 
 
 sys.pause <- function(t=NULL) {
-	rmd_on <- getOption('rbettersyntax::silent');
-	if(!is.logical(rmd_on)) rmd_on <- FALSE;
-	cat(c('\n rbettersyntax::silent option auf ',rmd_on,' eingestellt.'), sep='');
-	if(!rmd_on) {
-		if(!is.numeric(t)) {
+	if(!is.numeric(t)) {
+		rsilent <- getOption('rbettersyntax::silent');
+		if(!is.logical(rsilent)) rsilent <- FALSE;
+		if(!rsilent) {
 			cat('\nPaused. Press any key to continue...');
 			invisible(readline());
 			cat('\n');
-		} else {
-			Sys.sleep(t);
 		}
+	} else {
+		Sys.sleep(t);
 	}
 };
