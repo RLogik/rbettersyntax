@@ -8,14 +8,14 @@
 #' @param f Function to be modified to allow trailing commas
 #'
 #' @export ok.comma
-#' @export ok.comma.standard
 #'
-#' @examples rbettersyntax::ok.comma.standard();
 #' @examples c <- rbettersyntax::ok.comma(base::c);
 #' @examples list <- rbettersyntax::ok.comma(base::list);
 #' @examples myfun <- rbettersyntax::ok.comma(myfun);
 #'
 #' @keywords syntax trailing comma
+
+
 
 
 ok.comma <- function(f) {
@@ -30,11 +30,4 @@ ok.comma <- function(f) {
 		}
 		do.call(FUN, args, envir=env);
 	});
-};
-
-ok.comma.standard <- function() {
-	c <- ok.comma(base::c);
-	list <- ok.comma(base::list);
-	env <- environment();
-	for(obj in ls(all=TRUE)) assign(obj, get(obj, envir=env), .GlobalEnv);
 };

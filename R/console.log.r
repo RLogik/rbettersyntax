@@ -1,6 +1,6 @@
 #' rbettersyntax | console.log
 #'
-#' Allow for simpler syntax in R. Output messages to console. Use \code{options(rbettersyntax::rmd=TRUE)} to disable console output from \code{menu(···)} in e. g. markdown mode.
+#' Allow for simpler syntax in R. Output messages to console. Use \code{options('rbettersyntax::silent'=TRUE)} to disable console output.
 #'
 #' \code{console.log(tabs, m1, m2, ..)}
 #'
@@ -19,20 +19,15 @@
 
 
 console.log <- function(tabs=0, ...) {
-	lines <- list(...);
-	tabs <- rep('  ',tabs);
-	for(s in lines) {
-		if(!(length(s) == 1)) s <- paste0(s);
-		cat(tabs,s,'\n',sep='');
+	rmd_on <- getOption('rbettersyntax::silent');
+	if(!is.logical(rmd_on)) rmd_on <- FALSE;
+	cat(c('\n rbettersyntax::silent option auf ',rmd_on,' eingestellt.'), sep='');
+	if(!rmd_on) {
+		lines <- list(...);
+		tabs <- rep('  ',tabs);
+		for(s in lines) {
+			if(!(length(s) == 1)) s <- paste0(s);
+			cat(tabs,s,'\n',sep='');
+		}
 	}
 };
-
-assign('menu', function(...) {
-	rmd_on <- getOption('rbettersyntax::rmd');
-	if(!is.logical(rmd_on)) rmd_on <- FALSE;
-	if(!rmd_on) {
-		args <- as.list(sys.call())[-1L];
-		env <- parent.frame();
-		do.call(base::menu, args, envir=env);
-	}
-}, .GlobalEnv);

@@ -1,14 +1,37 @@
 # Package: rbettersyntax
 Verschafft Methoden für einfachere Syntax für die Sprache R.
 
+## Beispiele: standard.setup
+
+Manchmal will man Konsole-Interaktion mit einem einzigen Befehl im ganzen Code ausschalten.
+Dies wird mittels der `rbettersyntax::silent`-Option sowie
+der Methode `standard.setup` ermöglicht.
+
+```r
+options('rbettersyntax::silent'=TRUE);
+rbettersyntax::standard.setup(); # man braucht diese Zeile nur ein Mal im Code, am besten nachdem alle Packages geladen sind.
+
+menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## macht nichts.
+rbettersyntax::sys.pause(10); ## macht nichts.
+rbettersyntax::console.log(0,'Schritt I wird ausgeführt.'); ## macht nichts.
+```
+
+```r
+options('rbettersyntax::silent'=FALSE); # oder die Option einfach nicht setzen.
+
+menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## funktioniert
+rbettersyntax::sys.pause(10); ## funktioniert
+rbettersyntax::console.log(0,'Schritt I wird ausgeführt.'); ## funktioniert
+```
+
 ## Beispiele: get.pkgs
 
 ```r
 rbettersyntax::get.pkgs(53,
 	'tidyverse',
 	list('clusterby', mode='github', lib='RLogik', force=TRUE),
-	list('cowplot', dep=TRUE), # <- ja, ein trailing comma ist erlaubt!
-	list('GenomicRanges', mode='biocmanager', version='3.5')
+	list('cowplot', dep=TRUE),
+	list('GenomicRanges', mode='biocmanager', version='3.5'), # <- ja, ein trailing comma ist erlaubt!
 );
 ```
 
@@ -31,7 +54,7 @@ list <- rbettersyntax::ok.comma(base::list);
 oder einfach:
 
 ```r
-rbettersyntax::ok.comma.standard();
+rbettersyntax::standard.setup();
 ```
 
 Unter diesen Definitionen kann man bspw.
