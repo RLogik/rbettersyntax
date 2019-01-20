@@ -11,7 +11,7 @@ der Methode `standard.setup` ermöglicht.
 options('rbettersyntax::silent'=TRUE);
 rbettersyntax::standard.setup(); # man braucht diese Zeile nur ein Mal im Code, am besten nachdem alle Packages geladen sind.
 
-menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## macht nichts
+menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## macht nichts, gibt den Wert 0 zurück.
 rbettersyntax::sys.pause(); ## macht nichts
 rbettersyntax::sys.pause(10); ## funktioniert (weil keine User-Interaktion erforderlich)
 rbettersyntax::console.log(silent.off=FALSE,'Schritt I wird ausgeführt.'); ## funktioniert

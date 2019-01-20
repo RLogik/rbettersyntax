@@ -19,7 +19,7 @@ Provides standard ok.comma'd functions and enables via option a disabling of men
 \examples{
 options('rbettersyntax::silent'=TRUE);
 rbettersyntax::standard.setup();
-menu(c('Yes','No'), title='Proceed with script?'); # will skip user interaction and return NULL.
+menu(c('Yes','No'), title='Proceed with script?'); # will skip user interaction and return \\code{0}.
 rbettersyntax::sys.pause(); # will skip user interaction proceed with code.
 rbettersyntax::sys.pause(1); # will still pause for 1s.
 rbettersyntax::console.log(tabs=0, 'My message.'); # will not display.

@@ -11,7 +11,7 @@
 #'
 #' @examples options('rbettersyntax::silent'=TRUE);
 #' @examples rbettersyntax::standard.setup();
-#' @examples menu(c('Yes','No'), title='Proceed with script?'); # will skip user interaction and return NULL.
+#' @examples menu(c('Yes','No'), title='Proceed with script?'); # will skip user interaction and return \code{0}.
 #' @examples rbettersyntax::sys.pause(); # will skip user interaction proceed with code.
 #' @examples rbettersyntax::sys.pause(1); # will still pause for 1s.
 #' @examples rbettersyntax::console.log(tabs=0, 'My message.'); # will not display.
@@ -33,7 +33,7 @@ standard.setup <- function() {
 		rsilent <- getOption('rbettersyntax::silent');
 		if(!is.logical(rsilent)) rsilent <- FALSE;
 		if(rsilent) {
-			return(NULL);
+			return(0);
 		} else {
 			args <- as.list(sys.call())[-1L];
 			env <- parent.frame();
