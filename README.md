@@ -94,8 +94,8 @@ f <- rbettersyntax::ok.comma(f);
 ```r
 f <- function(df, ...) {
 	args <- list(...);
-	col <- rbettersyntax::read.args(args, 'column', is.character, c());
-	rowindex <- rbettersyntax::read.args(args, 'row', is.integer, 1);
+	col <- rbettersyntax::read.args(args, key='column', type=is.character, default=c());
+	rowindex <- rbettersyntax::read.args(args, key='row', type=is.integer, default=1);
 	## rest of code
 	## ...
 };

@@ -11,14 +11,27 @@
 #'
 #' @export read.args
 #'
-#' @examples f <- function(...) {args <- list(...); val <- rbettersyntax::read.args(args, 'name', is.character, 'N/A'); .....
+#' @examples f <- function(...) {args <- list(...); val <- rbettersyntax::read.args(args, key='name', type=is.character, default='N/A'); .....
 #'
 #' @keywords syntax read arguments parameters default value
 
 
 
 
-read.args <- function(vars, key, type, defaultval) {
+read.args <- function(vars, ...) {
+	if(!is.list(vars)) {
+		if(is.vector(vars)) {
+			vars <- as.list(vars);
+		} else {
+			vars <- list();
+		}
+	}
+	args <- list(...);
+	type <- args$type;
+	defaultval <- args$default;
+	key <- args$key;
+	if(!is.character(key)) key <- '';
+
 	if(!(key %in% names(vars))) return(defaultval);
 	val <- vars[[key]];
 	if(is.character(type)) {

@@ -43,12 +43,12 @@ get.pkgs <- function(mirror=NULL, ...) {
 		if(require(pkg, character.only=TRUE)) next;
 	
 		args_ <- as.list(opt);
-		mode <- rbettersyntax::read.args(args_, 'mode', is.character, 'cran');
-		lib <- rbettersyntax::read.args(args_, 'lib', is.character, '');
-		force <- rbettersyntax::read.args(args_, 'force', is.logical, FALSE);
-		dep <- rbettersyntax::read.args(args_, 'dep', is.logical, TRUE);
-		ver <- rbettersyntax::read.args(args_, 'version', is.character, NULL);
-		stoponerror <- rbettersyntax::read.args(args_, 'stop', is.logical, TRUE);
+		mode <- rbettersyntax::read.args(args_, key='mode', type=is.character, default='cran');
+		lib <- rbettersyntax::read.args(args_, key='lib', type=is.character, default='');
+		force <- rbettersyntax::read.args(args_, key='force', type=is.logical, default=FALSE);
+		dep <- rbettersyntax::read.args(args_, key='dep', type=is.logical, default=TRUE);
+		ver <- rbettersyntax::read.args(args_, key='version', type=is.character, default=NULL);
+		stoponerror <- rbettersyntax::read.args(args_, key='stop', type=is.logical, default=TRUE);
 
 		if(mode == 'github') {
 			nom <- paste(c(lib, pkg), collapse='/');a
