@@ -41,7 +41,7 @@ read.args <- function(vars, ...) {
 		if(type %in% c('list')) type <- is.list;
 	}
 	if(is.function(type)) {
-		if(!type(key)) return(defaultval);
+		if(!type(val)) return(defaultval);
 		return(val);
 	}
 	return(defaultval);
