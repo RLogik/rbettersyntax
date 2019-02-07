@@ -19,16 +19,6 @@ rbettersyntax::console.log('Schritt I wird ausgeführt.'); ## macht nichts
 rbettersyntax::console.log(silent.off=TRUE,'Schritt I wird ausgeführt.'); ## macht nichts
 ```
 
-```r
-options('rbettersyntax::silent'=FALSE); # oder die Option einfach nicht setzen.
-
-menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## funktioniert
-rbettersyntax::sys.pause(10); ## funktioniert
-rbettersyntax::console.log(silent.off=FALSE,'Schritt I wird ausgeführt.'); ## funktioniert
-rbettersyntax::console.log('Schritt I wird ausgeführt.'); ## funktioniert
-rbettersyntax::console.log(silent.off=TRUE,'Schritt I wird ausgeführt.'); ## funktioniert
-```
-
 ## Beispiele: get.pkgs
 
 ```r
@@ -38,6 +28,12 @@ rbettersyntax::get.pkgs(53,
 	list('cowplot', dep=TRUE),
 	list('GenomicRanges', mode='biocmanager', version='3.5'), # <- ja, ein trailing comma ist erlaubt!
 );
+```
+
+## Beispiele: console.clear
+
+```r
+console.clear(); ## löscht die Console
 ```
 
 ## Beispiele: console.log

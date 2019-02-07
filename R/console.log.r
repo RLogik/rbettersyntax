@@ -11,6 +11,7 @@
 #' @param m2 similar. User can set 0 or more 'messages' to be printed in the console.
 #'
 #' @export console.log
+#' @export console.clear
 #'
 #' @examples console.log(tabs=0, 'Test');
 #' @examples console.log(tabs=1, silent.off=TRUE, 'Starting Method', c('Scanning data set ',k,' for solutions:'));

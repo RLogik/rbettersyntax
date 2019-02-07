@@ -48,6 +48,7 @@ get.pkgs <- function(mirror=NULL, ...) {
 		force <- rbettersyntax::read.args(args_, key='force', type=is.logical, default=FALSE);
 		dep <- rbettersyntax::read.args(args_, key='dep', type=is.logical, default=TRUE);
 		ver <- rbettersyntax::read.args(args_, key='version', type=is.character, default=NULL);
+		quietly <- rbettersyntax::read.args(args_, key='quietly', type=is.character, default=FALSE);
 		stoponerror <- rbettersyntax::read.args(args_, key='stop', type=is.logical, default=TRUE);
 
 		if(mode == 'github') {
@@ -65,7 +66,7 @@ get.pkgs <- function(mirror=NULL, ...) {
 			}
 		} else { # if (mode == 'cran') {
 			if(is.null(ver)) {
-				install.packages(pkg, dep=dep, force=force); #character.only=TRUE);
+				install.packages(pkg, dep=dep, force=force, quietly=quietly); #character.only=TRUE);
 			} else {
 				devtools::install.packages(pkg, dep=dep, force=force, version=ver); #character.only=TRUE);
 			}
