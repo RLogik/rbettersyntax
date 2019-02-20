@@ -19,14 +19,12 @@ install.from.url(pkg.name = NULL, url = NULL, unzip = NULL,
 \item{require.pkg}{boolean. Default \code{FALSE}. If \code{require.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{require(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{require.pkg=TRUE}, then \code{require(···)} will be called at the end.}
 
 \item{force}{boolean. Defaut \code{FALSE}. If set to \code{FALSE}, determines, whether \code{library(···)} / \code{require(···)} will be attempted first before installation.}
-
-\item{use.pkg}{boolean. Default \code{FALSE}. If \code{use.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{library(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{use.pkg=TRUE}, then \code{library(···)} will be called at the end.}
 }
 \description{
 Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
 }
 \details{
-\code{install.from.url(pkg.name='...', url='...', unzip=NULL/TRUE/FALSE, install=TRUE/FALSE, use.pkg=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
+\code{install.from.url(pkg.name='...', url='...', unzip=NULL/TRUE/FALSE, install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 }
 \examples{
 rbettersyntax::install.from.url(url='http://domain.de/mypackage.zip?parameters=areok', unzip=TRUE);

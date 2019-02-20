@@ -2,13 +2,12 @@
 #'
 #' Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
 #'
-#' \code{install.from.url(pkg.name='...', url='...', unzip=NULL/TRUE/FALSE, install=TRUE/FALSE, use.pkg=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
+#' \code{install.from.url(pkg.name='...', url='...', unzip=NULL/TRUE/FALSE, install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 #'
 #' @param url a character string. A url.
 #' @param unzip boolean/NULL. Default \code{NULL}. If not logical, then will be set to \code{TRUE} <==> downloaded object is not a folder. If set to \code{TRUE}, then will the downloaded object will be unpacked.
 #' @param install boolean. Default \code{TRUE}. If set to \code{TRUE}, then the package in the downloaded object will be installed, otherwise the path of the downloaded package will be returned.
 #' @param pkg.name a character string. Optional. Name of Package, if known.
-#' @param use.pkg boolean. Default \code{FALSE}. If \code{use.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{library(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{use.pkg=TRUE}, then \code{library(···)} will be called at the end.
 #' @param require.pkg boolean. Default \code{FALSE}. If \code{require.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{require(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{require.pkg=TRUE}, then \code{require(···)} will be called at the end.
 #' @param force boolean. Defaut \code{FALSE}. If set to \code{FALSE}, determines, whether \code{library(···)} / \code{require(···)} will be attempted first before installation.
 #'
