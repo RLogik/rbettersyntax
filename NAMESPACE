@@ -3,6 +3,7 @@
 export(console.clear)
 export(console.log)
 export(get.pkgs)
+export(install.from.url)
 export(ok.comma)
 export(read.args)
 export(standard.setup)

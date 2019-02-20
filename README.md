@@ -30,20 +30,46 @@ rbettersyntax::get.pkgs(53,
 );
 ```
 
+## Beispiele: install.from.url
+
+Das Package. `installr`, hat eine Methode für die Installation von URLs.
+Dieser Algorithmus hat ein großes Problem: die Namen von den heruntergeladenen Dateien
+leiten sich direkt von der URL ab. Falls die URL Parameter enthält führt dies wiederum
+dazu, dass die lokal gespeicherten Dateien problematische Namen haben, was wiederum
+die Installation von diesen Ordnern/Dateien verhindert.
+
+Die entsprechende Methode in `rbettersyntax` vermeiden dieses Problem.
+Jetzt kannst du jegliche URLs verwenden!
+
+```r
+rbettersyntax::install.from.url('http://mydomain.co.uk/repository/mypackage.zip', unzip=TRUE);
+rbettersyntax::install.from.url('http://mydomain.co.uk/repository/get?mode=zip&name=test', unzip=TRUE); ## <- kein Problem!
+rbettersyntax::install.from.url('http://mydomain.co.uk/repository/mynonzippedpackage', unzip=FALSE);
+rbettersyntax::install.from.url('http://mydomain.co.uk/repository/mynonzippedpackage'); ## Default unzip=FALSE.
+
+## Falls man selber installieren möchte, dann etwa folgende Befehle ausführen:
+path1 <- rbettersyntax::install.from.url('http://mydomain.co.uk/repository/mynonzippedpackage', install=FALSE);
+path2 <- rbettersyntax::install.from.url('http://mydomain.co.uk/repository/my2ndonzippedpackage', install=FALSE);
+install.packages(pkgs=c(path1,path2), repos=NULL, type='source');
+## ggf. die Pfade nachher löschen:
+base::unlink(path1, recursive=TRUE);
+base::unlink(path2, recursive=TRUE);
+```
+
 ## Beispiele: console.clear
 
 ```r
-console.clear(); ## löscht die Console
+rbettersyntax::console.clear(); ## löscht die Console
 ```
 
 ## Beispiele: console.log
 
 ```r
-console.log(tabs=0, tab.char='\t', 'Starting code.');
-console.log(tabs=0, silent.off=TRUE, 'Starting code.');
-console.log(tab.char='  ', silent.off=FALSE, 'Starting code.');
+rbettersyntax::console.log(tabs=0, tab.char='\t', 'Starting code.');
+rbettersyntax::console.log(tabs=0, silent.off=TRUE, 'Starting code.');
+rbettersyntax::console.log(tab.char='  ', silent.off=FALSE, 'Starting code.');
 ## zwei Zeilen, die jeweils durch 3 Tabs eingerückt sind:
-console.log(tabs=3, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
+rbettersyntax::console.log(tabs=3, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
 ```
 
 ## Beispiele: ok.comma
