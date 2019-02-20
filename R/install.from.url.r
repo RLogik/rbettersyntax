@@ -37,7 +37,7 @@ install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TR
 	file <- base::tempfile(tmpdir=downloadfolder);
 	utils::download.file(url, destfile=file, mode='wb');
 
-	if(base::file.infos(file)$isdir) {
+	if(base::file.info(file)$isdir) {
 		pfad <- file;
 		tmpdir <- file;
 	} else {
