@@ -2,11 +2,15 @@
 #'
 #' Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
 #'
-#' \code{install.from.url(url='...', unzip=TRUE/FALSE, install=TRUE/FALSE)}
+#' \code{install.from.url(pkg.name='...', url='...', unzip=TRUE/FALSE, install=TRUE/FALSE, use.pkg=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 #'
 #' @param url a character string. A url.
 #' @param unzip boolean. Default \code{FALSE}. If set to \code{TRUE}, then will the downloaded object will be unpacked.
 #' @param install boolean. Default \code{TRUE}. If set to \code{TRUE}, then the package in the downloaded object will be installed, otherwise the path of the downloaded package will be returned.
+#' @param pkg.name a character string. Optional. Name of Package, if known.
+#' @param use.pkg boolean. Default \code{FALSE}. If \code{use.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{library(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{use.pkg=TRUE}, then \code{library(···)} will be called at the end.
+#' @param require.pkg boolean. Default \code{FALSE}. If \code{require.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{require(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{require.pkg=TRUE}, then \code{require(···)} will be called at the end.
+#' @param force boolean. Defaut \code{FALSE}. If set to \code{FALSE}, determines, whether \code{library(···)} / \code{require(···)} will be attempted first before installation.
 #'
 #' @export install.from.url
 #'
@@ -21,7 +25,20 @@
 
 
 
-install.from.url <- function(url=NULL, unzip=FALSE, install=TRUE) {
+install.from.url <- function(pkg.name=NULL, url=NULL, unzip=FALSE, install=TRUE, use.pkg=FALSE, require.pkg=FALSE, force=FALSE) {
+	## Versuche Package zu laden, solange force=FALSE;
+	if(is.character(pkg.name) && !force) {
+		bool <- FALSE;
+		if(use.pkg) {
+			bool <- TRUE;
+			try({
+				base::library(pkg.name, character.only=TRUE);
+			}, silent=TRUE);
+		} else if(require.pkg) {
+			bool <- base::require(pkg.name, character.only=TRUE);
+		}
+		if(bool) return(TRUE);
+	}
 	## Erstelle downloaded_packages-Ordner, falls dies nicht existiert:
 	downloadfolder <- base::file.path(base::tempdir(), 'downloaded_packages');
 	if(!('downloaded_packages' %in% base::list.dirs(path=base::tempdir(), full.names=FALSE, recursive=FALSE))) base::dir.create(downloadfolder);
@@ -56,18 +73,36 @@ install.from.url <- function(url=NULL, unzip=FALSE, install=TRUE) {
 		pfad <- file;
 		tmpdir <- file;
 	}
-	## vom Root installieren:
+
+	## vom Package-Root installieren:
 	if(is.character(pfad)) {
+		descr <- utils::read.delim(file=file.path(pfad, 'DESCRIPTION'), sep=':', head=FALSE, col.names=c('key','value'), stringsAsFactors=FALSE);
+		ind <- which(grepl('Package', descr$key, ignore.case=TRUE));
+		if(length(ind) > 0) pkg.name <- gsub('^\\s*(\\w*).*', '\\1', descr$value[ind[1]]);
 		if(install) install.packages(pkgs=pfad, repos=NULL, type='soure');
+		if(!install) return(pfad);
 	} else {
 		warning('No package contents could be found!');
-		pfad <- tmpdir;
+		if(install && (use.pkg || require.pkg)) return(FALSE);
+		if(!install) return(tmpdir);
 	}
-	if(install) {
-		## Temp-Ordner entfernen:
-		base::unlink(tmpdir, recursive=TRUE);
-		invisible(NULL);
-	} else {
-		return(pfad);
+
+	## Temp-Ordner entfernen:
+	base::unlink(tmpdir, recursive=TRUE);
+	## Versuche ggf. Package zu laden:
+	bool <- FALSE;
+	if(use.pkg) {
+		if(!is.character(pkg.name)) return(bool);
+		try({
+			base::library(pkg.name, character.only=TRUE);
+			bool <- TRUE;
+		}, silent=FALSE);
+		return(bool);
+	} else if(require.pkg) {
+		if(!is.character(pkg.name)) return(bool);
+		bool <- base::require(pkg.name, character.only=TRUE);
+		return(bool);
 	}
+
+	invisible(NULL);
 };
