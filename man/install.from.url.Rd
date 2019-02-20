@@ -4,15 +4,15 @@
 \alias{install.from.url}
 \title{rbettersyntax | install.from.url}
 \usage{
-install.from.url(pkg.name = NULL, url = NULL, unzip = NULL,
+install.from.url(pkg.name = NULL, url = NULL, file.type = NULL,
   install = TRUE, require.pkg = FALSE, force = FALSE)
 }
 \arguments{
-\item{pkg.name}{a character string. Optional. Name of Package, if known.}
+\item{pkg.name}{a character string. Optional. Name of Package, if known. Otherwise, the proceedure extracts this from the downloaded file.}
 
 \item{url}{a character string. A url.}
 
-\item{unzip}{boolean/NULL. Default \code{NULL}. If not logical, then will be set to \code{TRUE} <==> downloaded object is not a folder. If set to \code{TRUE}, then will the downloaded object will be unpacked.}
+\item{file.type}{character. Default \code{NULL}. If not set, then system will attempt to determin whether the file is to be extracted and by what method. If set to \code{'zip'}, \code{'gz'}, \code{'7z'}, etc., then an appropriate method will be applied to unpack the downloaded object.}
 
 \item{install}{boolean. Default \code{TRUE}. If set to \code{TRUE}, then the package in the downloaded object will be installed, otherwise the path of the downloaded package will be returned.}
 
@@ -24,14 +24,17 @@ install.from.url(pkg.name = NULL, url = NULL, unzip = NULL,
 Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
 }
 \details{
-\code{install.from.url(pkg.name='...', url='...', unzip=NULL/TRUE/FALSE, install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
+\code{install.from.url(pkg.name='...', url='...', file.type='...', install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 }
 \examples{
-rbettersyntax::install.from.url(url='http://domain.de/mypackage.zip?parameters=areok', unzip=TRUE);
-rbettersyntax::install.from.url(url='http://domain.de/mypackage.gz?parameters=areok', unzip=TRUE);
+rbettersyntax::install.from.url(url='http://domain.de/mypackage.zip?parameters=areok', file.type='zip');
+rbettersyntax::install.from.url(url='http://domain.de/mypackage.gz?parameters=areok', file.type='gz');
+rbettersyntax::install.from.url(url='http://domain.de/mypackage.gz?parameters=areok'); ## file type will be automatically detected
 rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok');
 path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE);
 install.packages(pkgs=path, repos=NULL, type='source');
+path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE, pkg.name='mypackage', require.pkg=TRUE); ## tries require('mypackage') first, otherwise installs package afresh.
+path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE, require.pkg=TRUE, force=TRUE); ## forces a fresh installation of the package followed by a require(···) command (package name will be automatically detected).
 
 }
 \keyword{URL}

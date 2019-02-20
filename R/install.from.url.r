@@ -2,29 +2,32 @@
 #'
 #' Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
 #'
-#' \code{install.from.url(pkg.name='...', url='...', unzip=NULL/TRUE/FALSE, install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
+#' \code{install.from.url(pkg.name='...', url='...', file.type='...', install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 #'
 #' @param url a character string. A url.
-#' @param unzip boolean/NULL. Default \code{NULL}. If not logical, then will be set to \code{TRUE} <==> downloaded object is not a folder. If set to \code{TRUE}, then will the downloaded object will be unpacked.
+#' @param file.type character. Default \code{NULL}. If not set, then system will attempt to determin whether the file is to be extracted and by what method. If set to \code{'zip'}, \code{'gz'}, \code{'7z'}, etc., then an appropriate method will be applied to unpack the downloaded object.
 #' @param install boolean. Default \code{TRUE}. If set to \code{TRUE}, then the package in the downloaded object will be installed, otherwise the path of the downloaded package will be returned.
-#' @param pkg.name a character string. Optional. Name of Package, if known.
+#' @param pkg.name a character string. Optional. Name of Package, if known. Otherwise, the proceedure extracts this from the downloaded file.
 #' @param require.pkg boolean. Default \code{FALSE}. If \code{require.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{require(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{require.pkg=TRUE}, then \code{require(···)} will be called at the end.
 #' @param force boolean. Defaut \code{FALSE}. If set to \code{FALSE}, determines, whether \code{library(···)} / \code{require(···)} will be attempted first before installation.
 #'
 #' @export install.from.url
 #'
-#' @examples rbettersyntax::install.from.url(url='http://domain.de/mypackage.zip?parameters=areok', unzip=TRUE);
-#' @examples rbettersyntax::install.from.url(url='http://domain.de/mypackage.gz?parameters=areok', unzip=TRUE);
+#' @examples rbettersyntax::install.from.url(url='http://domain.de/mypackage.zip?parameters=areok', file.type='zip');
+#' @examples rbettersyntax::install.from.url(url='http://domain.de/mypackage.gz?parameters=areok', file.type='gz');
+#' @examples rbettersyntax::install.from.url(url='http://domain.de/mypackage.gz?parameters=areok'); ## file type will be automatically detected
 #' @examples rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok');
 #' @examples path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE);
 #' @examples install.packages(pkgs=path, repos=NULL, type='source');
+#' @examples path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE, pkg.name='mypackage', require.pkg=TRUE); ## tries require('mypackage') first, otherwise installs package afresh.
+#' @examples path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE, require.pkg=TRUE, force=TRUE); ## forces a fresh installation of the package followed by a require(···) command (package name will be automatically detected).
 #'
 #' @keywords syntax load install packages URL
 
 
 
 
-install.from.url <- function(pkg.name=NULL, url=NULL, unzip=NULL, install=TRUE, require.pkg=FALSE, force=FALSE) {
+install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TRUE, require.pkg=FALSE, force=FALSE) {
 	## Versuche Package zu laden, solange force=FALSE;
 	if(is.character(pkg.name) && !force && require.pkg) if(base::require(pkg.name, character.only=TRUE)) return(TRUE);
 	## Erstelle downloaded_packages-Ordner, falls dies nicht existiert:
@@ -34,32 +37,61 @@ install.from.url <- function(pkg.name=NULL, url=NULL, unzip=NULL, install=TRUE, 
 	file <- base::tempfile(tmpdir=downloadfolder);
 	utils::download.file(url, destfile=file, mode='wb');
 
-	if(!is.logical(unzip)) unzip <- utils::file_test('-f', file); ## TRUE <==> Objekt ist kein Ordner.
+	is_file <- !base::file.infos(file)$isdir;
+	if(!is.character(file.type) && is_file) {
+		if(.Platform$OS.type == 'unix') { ## MAC OSX / Linux
+			file_infos <- base::system(paste0('file -I ',file), intern=TRUE);
+			file.type <- gsub('^.*:\\s*\\w*\\s*\\/\\s*(\\w*)\\s*;\\s*\\w*\\s*\\=\\s*\\w*\\s*.*$', '\\1', file_infos, perl=TRUE)
+		} else { ## Windows
+			## daran muss noch gebastelt werden:
+			# file_infos <- base::shell(paste0('filetype -i ',file), intern=TRUE);
+			file.type <- 'zip';
+		}
+	}
 
-	if(unzip) {
+	if(is_file) {
 		## Temp-Ordner erstellen:
 		currenttmpfolders <- base::list.dirs(path=downloadfolder, full.names=FALSE, recursive=FALSE);
 		i <- 0;
 		while(paste0('tmp', i) %in% currenttmpfolders) i <- i + 1;
 		tmpdir <- base::file.path(downloadfolder, paste0('tmp', i));
-		## Datei entpacken:
-		utils::unzip(zipfile=file, exdir=tmpdir);
+		# ## Datei entpacken:
+		# is_unpacked <- FALSE;
+		# if(is.character(file.type)) {
+		# 	is_unpacked <- TRUE;
+		# 	if(file.type=='zip') {
+		# 		utils::unzip(zipfile=file, exdir=tmpdir);
+		# 	} else if(file.type=='tar') {
+		# 		utils::untar(file, exdir=tmpdir);
+		# 	} else if(file.type=='gz') {
+		# 		utils::untar(file, exdir=tmpdir);
+		# 	## daran muss noch gebastelt werden:
+		# 	# } else if(file.type=='7z') {
+		# 	# 	# utils::unzip(zipfile=file, exdir=tmpdir);
+		# 	} else {
+		# 		is_unpacked <- FALSE;
+		# 	}
+		# }
 		base::unlink(file);
-		## Package-Root finden:
-		findDESCRIPTION <- function(p) {
-			if('DESCRIPTION' %in% base::list.files(path=p, full.names=FALSE, recursive=FALSE)) {
-				path <- p;
-			} else {
-				subfolders <- base::list.dirs(path=p, full.names=TRUE, recursive=FALSE);
-				path <- NULL;
-				for(pp in subfolders) {
-					path <- findDESCRIPTION(pp);
-					if(is.character(path)) break;
+		if(is_unpacked) {
+			## Package-Root finden:
+			findDESCRIPTION <- function(p) {
+				if('DESCRIPTION' %in% base::list.files(path=p, full.names=FALSE, recursive=FALSE)) {
+					path <- p;
+				} else {
+					subfolders <- base::list.dirs(path=p, full.names=TRUE, recursive=FALSE);
+					path <- NULL;
+					for(pp in subfolders) {
+						path <- findDESCRIPTION(pp);
+						if(is.character(path)) break;
+					}
 				}
-			}
-			return(path);
-		};
-		pfad <- findDESCRIPTION(tmpdir);
+				return(path);
+			};
+			pfad <- findDESCRIPTION(tmpdir);
+		} else {
+			pfad <- NULL;
+		}
 	} else {
 		pfad <- file;
 		tmpdir <- file;
