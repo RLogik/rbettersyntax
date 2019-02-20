@@ -98,12 +98,13 @@ install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TR
 	## vom Package-Root installieren:
 	if(is.character(pfad)) {
 		if(install) {
-			install.packages(pkgs=pfad, repos=NULL, type='soure', dependencies=TRUE);
-			base::unlink(tmpdir, recursive=TRUE);
 			## Package-Namen von der Description-Datei zu extrahieren versuchen:
 			descr <- utils::read.delim(file=file.path(pfad, 'DESCRIPTION'), sep=':', head=FALSE, col.names=c('key','value'), stringsAsFactors=FALSE);
 			ind <- which(grepl('Package', descr$key, ignore.case=TRUE));
 			if(length(ind) > 0) pkg.name <- gsub('^\\s*(\\w*).*', '\\1', descr$value[ind[1]]);
+			## Package vom Temp-Ordner installieren:
+			install.packages(pkgs=pfad, repos=NULL, type='soure', dependencies=TRUE);
+			base::unlink(tmpdir, recursive=TRUE);
 			## Versuche ggf. Package zu laden:
 			if(require.pkg) {
 				if(!is.character(pkg.name)) return(FALSE);
