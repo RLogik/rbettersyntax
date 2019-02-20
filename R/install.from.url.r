@@ -37,41 +37,42 @@ install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TR
 	file <- base::tempfile(tmpdir=downloadfolder);
 	utils::download.file(url, destfile=file, mode='wb');
 
-	is_file <- !base::file.infos(file)$isdir;
-	if(!is.character(file.type) && is_file) {
-		if(.Platform$OS.type == 'unix') { ## MAC OSX / Linux
-			file_infos <- base::system(paste0('file -I ',file), intern=TRUE);
-			file.type <- gsub('^.*:\\s*\\w*\\s*\\/\\s*(\\w*)\\s*;\\s*\\w*\\s*\\=\\s*\\w*\\s*.*$', '\\1', file_infos, perl=TRUE)
-		} else { ## Windows
-			## daran muss noch gebastelt werden:
-			# file_infos <- base::shell(paste0('filetype -i ',file), intern=TRUE);
-			file.type <- 'zip';
+	if(base::file.infos(file)$isdir) {
+		pfad <- file;
+		tmpdir <- file;
+	} else {
+		if(!is.character(file.type)) {
+			if(.Platform$OS.type == 'unix') { ## MAC OSX / Linux
+				file_infos <- base::system(paste0('file -I ',file), intern=TRUE);
+				file.type <- gsub('^.*:\\s*\\w*\\s*\\/\\s*(\\w*)\\s*;\\s*\\w*\\s*\\=\\s*\\w*\\s*.*$', '\\1', file_infos, perl=TRUE)
+			} else { ## Windows
+				## daran muss noch gebastelt werden:
+				# file_infos <- base::shell(paste0('filetype -i ',file), intern=TRUE);
+				file.type <- 'zip';
+			}
 		}
-	}
-
-	if(is_file) {
 		## Temp-Ordner erstellen:
 		currenttmpfolders <- base::list.dirs(path=downloadfolder, full.names=FALSE, recursive=FALSE);
 		i <- 0;
 		while(paste0('tmp', i) %in% currenttmpfolders) i <- i + 1;
 		tmpdir <- base::file.path(downloadfolder, paste0('tmp', i));
-		# ## Datei entpacken:
-		# is_unpacked <- FALSE;
-		# if(is.character(file.type)) {
-		# 	is_unpacked <- TRUE;
-		# 	if(file.type=='zip') {
-		# 		utils::unzip(zipfile=file, exdir=tmpdir);
-		# 	} else if(file.type=='tar') {
-		# 		utils::untar(file, exdir=tmpdir);
-		# 	} else if(file.type=='gz') {
-		# 		utils::untar(file, exdir=tmpdir);
-		# 	## daran muss noch gebastelt werden:
-		# 	# } else if(file.type=='7z') {
-		# 	# 	# utils::unzip(zipfile=file, exdir=tmpdir);
-		# 	} else {
-		# 		is_unpacked <- FALSE;
-		# 	}
-		# }
+		## Datei entpacken:
+		is_unpacked <- FALSE;
+		if(is.character(file.type)) {
+			is_unpacked <- TRUE;
+			if(file.type=='zip') {
+				utils::unzip(zipfile=file, exdir=tmpdir);
+			} else if(file.type=='tar') {
+				utils::untar(file, exdir=tmpdir);
+			} else if(file.type=='gz') {
+				utils::untar(file, exdir=tmpdir);
+			## daran muss noch gebastelt werden:
+			# } else if(file.type=='7z') {
+			# 	# utils::unzip(zipfile=file, exdir=tmpdir);
+			} else {
+				is_unpacked <- FALSE;
+			}
+		}
 		base::unlink(file);
 		if(is_unpacked) {
 			## Package-Root finden:
@@ -92,9 +93,6 @@ install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TR
 		} else {
 			pfad <- NULL;
 		}
-	} else {
-		pfad <- file;
-		tmpdir <- file;
 	}
 
 	## vom Package-Root installieren:
