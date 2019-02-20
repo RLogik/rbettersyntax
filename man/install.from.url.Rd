@@ -4,30 +4,29 @@
 \alias{install.from.url}
 \title{rbettersyntax | install.from.url}
 \usage{
-install.from.url(pkg.name = NULL, url = NULL, unzip = FALSE,
-  install = TRUE, use.pkg = FALSE, require.pkg = FALSE,
-  force = FALSE)
+install.from.url(pkg.name = NULL, url = NULL, unzip = NULL,
+  install = TRUE, require.pkg = FALSE, force = FALSE)
 }
 \arguments{
 \item{pkg.name}{a character string. Optional. Name of Package, if known.}
 
 \item{url}{a character string. A url.}
 
-\item{unzip}{boolean. Default \code{FALSE}. If set to \code{TRUE}, then will the downloaded object will be unpacked.}
+\item{unzip}{boolean/NULL. Default \code{NULL}. If not logical, then will be set to \code{TRUE} <==> downloaded object is not a folder. If set to \code{TRUE}, then will the downloaded object will be unpacked.}
 
 \item{install}{boolean. Default \code{TRUE}. If set to \code{TRUE}, then the package in the downloaded object will be installed, otherwise the path of the downloaded package will be returned.}
-
-\item{use.pkg}{boolean. Default \code{FALSE}. If \code{use.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{library(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{use.pkg=TRUE}, then \code{library(···)} will be called at the end.}
 
 \item{require.pkg}{boolean. Default \code{FALSE}. If \code{require.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{require(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{require.pkg=TRUE}, then \code{require(···)} will be called at the end.}
 
 \item{force}{boolean. Defaut \code{FALSE}. If set to \code{FALSE}, determines, whether \code{library(···)} / \code{require(···)} will be attempted first before installation.}
+
+\item{use.pkg}{boolean. Default \code{FALSE}. If \code{use.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{library(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{use.pkg=TRUE}, then \code{library(···)} will be called at the end.}
 }
 \description{
 Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
 }
 \details{
-\code{install.from.url(pkg.name='...', url='...', unzip=TRUE/FALSE, install=TRUE/FALSE, use.pkg=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
+\code{install.from.url(pkg.name='...', url='...', unzip=NULL/TRUE/FALSE, install=TRUE/FALSE, use.pkg=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 }
 \examples{
 rbettersyntax::install.from.url(url='http://domain.de/mypackage.zip?parameters=areok', unzip=TRUE);
