@@ -33,7 +33,7 @@ install.from.url <- function(url=NULL, unzip=FALSE, install=TRUE) {
 		currenttmpfolders <- base::list.dirs(path=downloadfolder, full.names=FALSE, recursive=FALSE);
 		i <- 0;
 		while(paste0('tmp', i) %in% currenttmpfolders) i <- i + 1;
-		tmpdir <- base::file.path(currenttmpfolders, paste0('tmp', i));
+		tmpdir <- base::file.path(downloadfolder, paste0('tmp', i));
 		## Datei entpacken:
 		utils::unzip(zipfile=file, exdir=tmpdir);
 		base::unlink(file);
