@@ -30,9 +30,9 @@ install.from.url <- function(pkg.name=NULL, url=NULL, unzip=FALSE, install=TRUE,
 	if(is.character(pkg.name) && !force) {
 		bool <- FALSE;
 		if(use.pkg) {
-			bool <- TRUE;
 			try({
 				base::library(pkg.name, character.only=TRUE);
+				bool <- TRUE;
 			}, silent=TRUE);
 		} else if(require.pkg) {
 			bool <- base::require(pkg.name, character.only=TRUE);
@@ -76,15 +76,22 @@ install.from.url <- function(pkg.name=NULL, url=NULL, unzip=FALSE, install=TRUE,
 
 	## vom Package-Root installieren:
 	if(is.character(pfad)) {
-		descr <- utils::read.delim(file=file.path(pfad, 'DESCRIPTION'), sep=':', head=FALSE, col.names=c('key','value'), stringsAsFactors=FALSE);
-		ind <- which(grepl('Package', descr$key, ignore.case=TRUE));
-		if(length(ind) > 0) pkg.name <- gsub('^\\s*(\\w*).*', '\\1', descr$value[ind[1]]);
-		if(install) install.packages(pkgs=pfad, repos=NULL, type='soure');
-		if(!install) return(pfad);
+		if(install) {
+			install.packages(pkgs=pfad, repos=NULL, type='soure', dependencies=TRUE);
+			## Package-Namen von der Description-Datei zu extrahieren versuchen:
+			descr <- utils::read.delim(file=file.path(pfad, 'DESCRIPTION'), sep=':', head=FALSE, col.names=c('key','value'), stringsAsFactors=FALSE);
+			ind <- which(grepl('Package', descr$key, ignore.case=TRUE));
+			if(length(ind) > 0) pkg.name <- gsub('^\\s*(\\w*).*', '\\1', descr$value[ind[1]]);
+		} else {
+			return(pfad);
+		}
 	} else {
 		warning('No package contents could be found!');
-		if(install && (use.pkg || require.pkg)) return(FALSE);
-		if(!install) return(tmpdir);
+		if(install) {
+			if(use.pkg || require.pkg) return(FALSE);
+		} else {
+			return(tmpdir);
+		}
 	}
 
 	## Temp-Ordner entfernen:
