@@ -1,6 +1,6 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rbettersyntax)](https://cran.r-project.org/package=rbettersyntax)
-![](http://cranlogs.r-pkg.org/badges/rbettersyntax?color=yellow)
-![](http://cranlogs.r-pkg.org/badges/grand-total/rbettersyntax?color=yellowgreen)
+<!-- ![](http://cranlogs.r-pkg.org/badges/rbettersyntax?color=yellow)
+![](http://cranlogs.r-pkg.org/badges/grand-total/rbettersyntax?color=yellowgreen) -->
 
 
 # rbettersyntax
