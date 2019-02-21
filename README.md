@@ -1,4 +1,10 @@
-# Package: rbettersyntax
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rbettersyntax)](https://cran.r-project.org/package=rbettersyntax)
+![](http://cranlogs.r-pkg.org/badges/rbettersyntax?color=yellow)
+![](http://cranlogs.r-pkg.org/badges/grand-total/rbettersyntax?color=yellowgreen)
+
+
+# rbettersyntax
+
 Verschafft Methoden für einfachere Syntax für die Sprache R.
 
 ## Beispiele: standard.setup
@@ -32,14 +38,7 @@ get.pkgs(53,
 
 ## Beispiele: install.from.url
 
-Das Package. `installr`, hat eine Methode für die Installation von URLs.
-Dieser Algorithmus hat ein großes Problem: die Namen von den heruntergeladenen Dateien
-leiten sich direkt von der URL ab. Falls die URL Parameter enthält führt dies wiederum
-dazu, dass die lokal gespeicherten Dateien problematische Namen haben, was wiederum
-die Installation von diesen Ordnern/Dateien verhindert.
-
-Die entsprechende Methode in `rbettersyntax` vermeiden dieses Problem.
-Jetzt kannst du jegliche URLs verwenden!
+Das Package, [`installr`](https://github.com/talgalili/installr), liefert Methode für Package-Installation von URLs inkl. unzip. Diese Algorithmen sind einem großen Problem ausgesetzt: die Namen der heruntergeladenen Dateien leiten sich direkt aus der URL ab, und, falls eine URL Parameter enthält, führt dies wiederum dazu, dass die lokal gespeicherten Dateien mit problematischen Namen versehen werden. Dies bereitet dem Installationsprozess Probleme. Die entsprechenden Methode in `rbettersyntax` vermeiden dieses Problem. Jetzt kann man jegliche URLs verwenden!
 
 ```r
 install.from.url(url='http://mydomain.co.uk/repository/mynonzippedpackage');
