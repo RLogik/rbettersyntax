@@ -9,20 +9,20 @@ der Methode `standard.setup` ermöglicht.
 
 ```r
 options('rbettersyntax::silent'=TRUE);
-rbettersyntax::standard.setup(); # man braucht diese Zeile nur ein Mal im Code, am besten nachdem alle Packages geladen sind.
+standard.setup(); # man braucht diese Zeile nur ein Mal im Code, am besten nachdem alle Packages geladen sind.
 
 menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## macht nichts, gibt den Wert 0 zurück.
-rbettersyntax::sys.pause(); ## macht nichts
-rbettersyntax::sys.pause(10); ## funktioniert (weil keine User-Interaktion erforderlich)
-rbettersyntax::console.log(silent.off=FALSE,'Schritt I wird ausgeführt.'); ## funktioniert
-rbettersyntax::console.log('Schritt I wird ausgeführt.'); ## macht nichts
-rbettersyntax::console.log(silent.off=TRUE,'Schritt I wird ausgeführt.'); ## macht nichts
+sys.pause(); ## macht nichts
+sys.pause(10); ## funktioniert (weil keine User-Interaktion erforderlich)
+console.log(silent.off=FALSE,'Schritt I wird ausgeführt.'); ## funktioniert
+console.log('Schritt I wird ausgeführt.'); ## macht nichts
+console.log(silent.off=TRUE,'Schritt I wird ausgeführt.'); ## macht nichts
 ```
 
 ## Beispiele: get.pkgs
 
 ```r
-rbettersyntax::get.pkgs(53,
+get.pkgs(53,
 	'tidyverse',
 	list('clusterby', mode='github', lib='RLogik', force=TRUE),
 	list('cowplot', dep=TRUE),
@@ -42,34 +42,43 @@ Die entsprechende Methode in `rbettersyntax` vermeiden dieses Problem.
 Jetzt kannst du jegliche URLs verwenden!
 
 ```r
-rbettersyntax::install.from.url('http://mydomain.co.uk/repository/mypackage.zip', unzip=TRUE);
-rbettersyntax::install.from.url('http://mydomain.co.uk/repository/get?mode=zip&name=test', unzip=TRUE); ## <- kein Problem!
-rbettersyntax::install.from.url('http://mydomain.co.uk/repository/mynonzippedpackage', unzip=FALSE);
-rbettersyntax::install.from.url('http://mydomain.co.uk/repository/mynonzippedpackage'); ## Default unzip=FALSE.
+install.from.url(url='http://mydomain.co.uk/repository/mynonzippedpackage');
+install.from.url(url='http://mydomain.co.uk/repository/mypackage.zip'); ## <- erkennt an der Datei, dass es sich um eine zip-Datei handelt
+install.from.url(url='http://mydomain.co.uk/repository/mypackage.zip', file.type='zip'); ## ansonsten kann man explizit den Dateityp eingeben.
+install.from.url(url='http://mydomain.co.uk/repository/get?mode=gz&name=test', file.type='gz'); ## kein Problem mit URLs mit Parametern!
 
 ## Falls man selber installieren möchte, dann etwa folgende Befehle ausführen:
-path1 <- rbettersyntax::install.from.url('http://mydomain.co.uk/repository/mynonzippedpackage', install=FALSE);
-path2 <- rbettersyntax::install.from.url('http://mydomain.co.uk/repository/my2ndonzippedpackage', install=FALSE);
+path1 <- install.from.url(url='http://mydomain.co.uk/repository/mynonzippedpackage', install=FALSE);
+path2 <- install.from.url(url='http://mydomain.co.uk/repository/my2ndonzippedpackage', install=FALSE);
 install.packages(pkgs=c(path1,path2), repos=NULL, type='source');
 ## ggf. die Pfade nachher löschen:
 base::unlink(path1, recursive=TRUE);
 base::unlink(path2, recursive=TRUE);
+
+## Folgende Befehle sind äquivalent und versucht require(···), dann ggf. Installation, dann require(···):
+install.from.url(pkg.name='mypackage', url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE);
+install.from.url(pkg.name='mypackage', url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE, force=FALSE);
+
+## Folgende Befehle sind äquivalent und erzwingen Installation bevor require(···):
+install.from.url(url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE);
+install.from.url(url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE, force=TRUE);
+install.from.url(pkg.name='mypackage', url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE, force=TRUE);
 ```
 
 ## Beispiele: console.clear
 
 ```r
-rbettersyntax::console.clear(); ## löscht die Console
+console.clear(); ## löscht die Console
 ```
 
 ## Beispiele: console.log
 
 ```r
-rbettersyntax::console.log(tabs=0, tab.char='\t', 'Starting code.');
-rbettersyntax::console.log(tabs=0, silent.off=TRUE, 'Starting code.');
-rbettersyntax::console.log(tab.char='  ', silent.off=FALSE, 'Starting code.');
+console.log(tabs=0, tab.char='\t', 'Starting code.');
+console.log(tabs=0, silent.off=TRUE, 'Starting code.');
+console.log(tab.char='  ', silent.off=FALSE, 'Starting code.');
 ## zwei Zeilen, die jeweils durch 3 Tabs eingerückt sind:
-rbettersyntax::console.log(tabs=3, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
+console.log(tabs=3, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
 ```
 
 ## Beispiele: ok.comma
@@ -77,14 +86,14 @@ rbettersyntax::console.log(tabs=3, 'Starting Method', c('Scanning data set ',k,'
 Diese Methode stammt ursprünglich von [**flodel**](https://gist.github.com/flodel/5283216) und wurde von mir leicht modifiziert, um endlose Schleifen zu vermeiden.
 
 ```r
-c <- rbettersyntax::ok.comma(base::c);
-list <- rbettersyntax::ok.comma(base::list);
+c <- ok.comma(base::c);
+list <- ok.comma(base::list);
 ```
 
 oder einfach:
 
 ```r
-rbettersyntax::standard.setup();
+standard.setup();
 ```
 
 Unter diesen Definitionen kann man bspw.
@@ -108,7 +117,7 @@ Man kann auch `ok.comma` bei beliebigen Funktionen einsetzen.
 f <- function(x, ...) {
 	## Funktioninhalt
 };
-f <- rbettersyntax::ok.comma(f);
+f <- ok.comma(f);
 ```
 
 ## Beispiele: read.args
@@ -116,8 +125,8 @@ f <- rbettersyntax::ok.comma(f);
 ```r
 f <- function(df, ...) {
 	args <- list(...);
-	col <- rbettersyntax::read.args(args, key='column', type=is.character, default=c());
-	rowindex <- rbettersyntax::read.args(args, key='row', type=is.integer, default=1);
+	col <- read.args(args, key='column', type=is.character, default=c());
+	rowindex <- read.args(args, key='row', type=is.integer, default=1);
 	## rest of code
 	## ...
 };

@@ -25,8 +25,6 @@
 
 
 standard.setup <- function() {
-	env <- environment();
-
 	c <- ok.comma(base::c);
 	list <- ok.comma(base::list);
 	menu <- function(...) {
@@ -41,5 +39,5 @@ standard.setup <- function() {
 		}
 	};
 
-	for(obj in ls(all=TRUE)) assign(obj, get(obj, envir=env), .GlobalEnv);
+	for(obj in ls(all=TRUE)) assign(obj, get(obj, envir=environment()), .GlobalEnv);
 };
