@@ -1,4 +1,3 @@
-#' @export read.args
 #' @title rbettersyntax | read.args
 #' @description Allow for simpler syntax in R. Read input arguments from ... with expected type and default values.
 #'
@@ -7,6 +6,8 @@
 #' @param key character string. This is the name of the parameter you wish to extract.
 #' @param type function or string. If a boolean-valued function like \code{is.character}, \code{is.logical}, etc., this will be used to check the type of the argument. If a string, then a standard type-checking function will be called.
 #' @param defaultval Default value. Will be set, if argument is missing or is not of the correct type.
+#'
+#' @export read.args
 #'
 #' @examples \dontrun{
 #'	f <- function(...) {
