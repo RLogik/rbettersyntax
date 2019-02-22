@@ -15,12 +15,13 @@ get.pkgs(mirror = NULL, ...)
 }
 \description{
 Allow for simpler syntax in R. Loads packages. If not available, then an install attempt will be carried out.
-}
-\details{
+
 \code{get.pkgs(mirror, pkg1, pkg2, ...)}
 }
 \examples{
-rbettersyntax::get.pkgs(53, 'tidyverse', list('clusterby', mode='github', lib='RLogik'), list('cow_plot', dep=TRUE));
+\dontrun{
+rbettersyntax::get.pkgs(53, 'tidyverse', list('clusterby', mode='github', lib='RLogik'), list('cow_plot', dep=TRUE))
+};
 
 }
 \keyword{install}

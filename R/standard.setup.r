@@ -1,6 +1,6 @@
-#' rbettersyntax | standard.setup
+#' @title rbettersyntax | standard.setup
 #'
-#' Provides standard ok.comma'd functions and enables via option a disabling of menu and sys.pause.
+#' @description Provides standard ok.comma'd functions and enables via option a disabling of menu and sys.pause.
 #'
 #' \code{standard.setup()}
 #' \code{menu(options, title=title)}
@@ -9,15 +9,19 @@
 #'
 #' @param options character string vector. As per the definition of base::menu
 #'
-#' @examples options('rbettersyntax::silent'=TRUE);
-#' @examples rbettersyntax::standard.setup();
-#' @examples menu(c('Yes','No'), title='Proceed with script?'); # will skip user interaction and return \code{0}.
-#' @examples rbettersyntax::sys.pause(); # will skip user interaction proceed with code.
-#' @examples rbettersyntax::sys.pause(1); # will still pause for 1s.
-#' @examples rbettersyntax::console.log(tabs=0, 'My message.'); # will not display.
-#' @examples rbettersyntax::console.log(tabs=0, silent.off=TRUE, 'My message.'); # will not display.
-#' @examples rbettersyntax::console.log(tabs=0, silent.off=FALSE, 'My message.'); # will show.
-#' @examples options('rbettersyntax::silent'=FALSE); # reactivates menu, sys.pause, console.log, etc.
+#' @examples \dontrun{
+#'	options('rbettersyntax::silent'=TRUE);
+#'	standard.setup();
+#'	# will skip user interaction and return \code{0}:
+#'	menu(c('Yes','No'), title='Proceed with script?');
+#'	sys.pause(); # will skip user interaction proceed with code.
+#'	sys.pause(1); # will still pause for 1s.
+#'	console.log(tabs=0, 'My message.'); # will not display.
+#'	console.log(tabs=0, silent.off=TRUE, 'My message.'); # will not display.
+#'	console.log(tabs=0, silent.off=FALSE, 'My message.'); # will show.
+#'	# reactivates menu, sys.pause, console.log, etc.
+#'	options('rbettersyntax::silent'=FALSE);
+#' }
 #'
 #' @keywords syntax rbettersyntax standard setup
 

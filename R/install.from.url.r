@@ -1,6 +1,6 @@
-#' rbettersyntax | install.from.url
+#' @title rbettersyntax | install.from.url
 #'
-#' Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
+#' @description Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
 #'
 #' \code{install.from.url(pkg.name='...', url='...', file.type='...', install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 #'
@@ -13,14 +13,16 @@
 #'
 #' @export install.from.url
 #'
-#' @examples rbettersyntax::install.from.url(url='http://domain.de/mypackage.zip?parameters=areok', file.type='zip');
-#' @examples rbettersyntax::install.from.url(url='http://domain.de/mypackage.gz?parameters=areok', file.type='gz');
-#' @examples rbettersyntax::install.from.url(url='http://domain.de/mypackage.gz?parameters=areok'); ## file type will be automatically detected
-#' @examples rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok');
-#' @examples path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE);
-#' @examples install.packages(pkgs=path, repos=NULL, type='source');
-#' @examples path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE, pkg.name='mypackage', require.pkg=TRUE); ## tries require('mypackage') first, otherwise installs package afresh.
-#' @examples path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE, require.pkg=TRUE, force=TRUE); ## forces a fresh installation of the package followed by a require(···) command (package name will be automatically detected).
+#' @examples \dontrun{
+#'	rbettersyntax::install.from.url(url='http://domain.de/mypackage.zip?parameters=areok', file.type='zip');
+#'	rbettersyntax::install.from.url(url='http://domain.de/mypackage.gz?parameters=areok', file.type='gz');
+#'	rbettersyntax::install.from.url(url='http://domain.de/mypackage.gz?parameters=areok'); ## file type will be automatically detected
+#'	rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok');
+#'	path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE);
+#'	install.packages(pkgs=path, repos=NULL, type='source');
+#'	path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE, pkg.name='mypackage', require.pkg=TRUE); ## tries require('mypackage') first, otherwise installs package afresh.
+#'	path <- rbettersyntax::install.from.url(url='http://domain.de/mypackage?parameters=areok', install=FALSE, require.pkg=TRUE, force=TRUE); ## forces a fresh installation of the package followed by a require(···) command (package name will be automatically detected).
+#' }
 #'
 #' @keywords syntax load install packages URL
 

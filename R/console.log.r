@@ -1,6 +1,6 @@
-#' rbettersyntax | console.log
+#' @title rbettersyntax | console.log
 #'
-#' Allow for simpler syntax in R. Output messages to console. Use \code{options('rbettersyntax::silent'=TRUE)} to disable console output.
+#' @description Allow for simpler syntax in R. Output messages to console. Use \code{options('rbettersyntax::silent'=TRUE)} to disable console output.
 #'
 #' \code{console.log(tabs=tabs, tab.char=tab.char, silent.off=silent.off, m1, m2, ..)}
 #'
@@ -11,10 +11,11 @@
 #' @param m2 similar. User can set 0 or more 'messages' to be printed in the console.
 #'
 #' @export console.log
-#' @export console.clear
 #'
-#' @examples console.log(tabs=0, 'Test');
-#' @examples console.log(tabs=1, silent.off=TRUE, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
+#' @examples \dontrun{
+#'	console.log(tabs=0, 'Test');
+#'	console.log(tabs=1, silent.off=TRUE, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
+#' }
 #'
 #' @keywords syntax console.log console log
 
@@ -31,7 +32,8 @@ console.log <- function(...) {
 		if(!is.logical(rsilent)) rsilent <- FALSE;
 	}
 	if(!rsilent) {
-		tabs <- INPUTARGS[['tabs']]; if(!is.numeric(tabs)) tabs <- 0;
+		tabs <- INPUTARGS[['tabs']];
+		if(!is.numeric(tabs)) tabs <- 0;
 		tab.char <- INPUTARGS[['tab.char']]; if(!is.character(tab.char)) tab.char <- '  ';
 		if(is.null(names(INPUTARGS))) names(INPUTARGS) <- rep('', length(INPUTARGS));
 		lines <- INPUTARGS[which(!(names(INPUTARGS) %in% c('tabs','tab.char','silent.off')))];

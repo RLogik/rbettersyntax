@@ -1,6 +1,6 @@
-#' rbettersyntax | get.pkgs
+#' @title rbettersyntax | get.pkgs
 #'
-#' Allow for simpler syntax in R. Loads packages. If not available, then an install attempt will be carried out.
+#' @description Allow for simpler syntax in R. Loads packages. If not available, then an install attempt will be carried out.
 #'
 #' \code{get.pkgs(mirror, pkg1, pkg2, ...)}
 #'
@@ -10,7 +10,9 @@
 #'
 #' @export get.pkgs
 #'
-#' @examples rbettersyntax::get.pkgs(53, 'tidyverse', list('clusterby', mode='github', lib='RLogik'), list('cow_plot', dep=TRUE));
+#' @examples \dontrun{
+#'	rbettersyntax::get.pkgs(53, 'tidyverse', list('clusterby', mode='github', lib='RLogik'), list('cow_plot', dep=TRUE))
+#' };
 #'
 #' @keywords syntax load install packages
 

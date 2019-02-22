@@ -8,12 +8,13 @@ console.clear()
 }
 \description{
 Allow for simpler syntax in R. Clear console.
-}
-\details{
+
 \code{console.clear()}
 }
 \examples{
+\dontrun{
 console.clear();
+}
 
 }
 \keyword{console.clear}

@@ -17,9 +17,18 @@ read.args(vars, ...)
 }
 \description{
 Allow for simpler syntax in R. Read input arguments from ... with expected type and default values.
-}
-\details{
+
 \code{val <- read.args(args, key, type, defaultval)}
+}
+\examples{
+\dontrun{
+f <- function(...) {
+	args <- list(...);
+	val <- rbettersyntax::read.args(args, key='name', type=is.character, default='N/A');
+	## Rest of the function definition
+};
+ }
+
 }
 \keyword{arguments}
 \keyword{default}

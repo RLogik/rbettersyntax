@@ -1,6 +1,6 @@
-#' rbettersyntax | sys.pause
+#' @title rbettersyntax | sys.pause
 #'
-#' Allow for simpler syntax in R. Method to pause execution. Use \code{options('rbettersyntax::silent'=TRUE)} to disable all sys.pause commands in e. g. markdown mode.
+#' @description Allow for simpler syntax in R. Method to pause execution. Use \code{options('rbettersyntax::silent'=TRUE)} to disable all sys.pause commands in e. g. markdown mode.
 #'
 #' \code{sys.pause(* t)}
 #'
@@ -8,9 +8,11 @@
 #'
 #' @export sys.pause
 #'
-#' @examples sys.pause(); # pause until user presses any key.
-#' @examples sys.pause(0.5); # pause for 0.5 seconds
-#' @examples sys.pause(10); # pause for 10 seconds
+#' @examples \dontrun{
+#'	sys.pause(); # pause until user presses any key.
+#'	sys.pause(0.5); # pause for 0.5 seconds
+#'	sys.pause(10); # pause for 10 seconds
+#' }
 #'
 #' @keywords syntax system pause
 

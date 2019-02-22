@@ -11,15 +11,16 @@ ok.comma(f)
 }
 \description{
 Allow for simpler syntax in R. This method enables trailing commata. Modification of flodel's method.
-}
-\details{
+
 \code{f <- ok.comma(f)}
 \code{ok.comma.standard()}
 }
 \examples{
+\dontrun{
 c <- rbettersyntax::ok.comma(base::c);
 list <- rbettersyntax::ok.comma(base::list);
 myfun <- rbettersyntax::ok.comma(myfun);
+}
 
 }
 \keyword{comma}

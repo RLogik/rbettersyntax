@@ -1,6 +1,6 @@
-#' rbettersyntax | read.args
+#' @title rbettersyntax | read.args
 #'
-#' Allow for simpler syntax in R. Read input arguments from ... with expected type and default values.
+#' @description Allow for simpler syntax in R. Read input arguments from ... with expected type and default values.
 #'
 #' \code{val <- read.args(args, key, type, defaultval)}
 #'
@@ -11,7 +11,13 @@
 #'
 #' @export read.args
 #'
-#' @examples f <- function(...) {args <- list(...); val <- rbettersyntax::read.args(args, key='name', type=is.character, default='N/A'); .....
+#' @examples \dontrun{
+#'	f <- function(...) {
+#'		args <- list(...);
+#'		val <- rbettersyntax::read.args(args, key='name', type=is.character, default='N/A');
+#'		## Rest of the function definition
+#'	};
+#' }
 #'
 #' @keywords syntax read arguments parameters default value
 

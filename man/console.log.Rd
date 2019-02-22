@@ -19,13 +19,14 @@ console.log(...)
 }
 \description{
 Allow for simpler syntax in R. Output messages to console. Use \code{options('rbettersyntax::silent'=TRUE)} to disable console output.
-}
-\details{
+
 \code{console.log(tabs=tabs, tab.char=tab.char, silent.off=silent.off, m1, m2, ..)}
 }
 \examples{
+\dontrun{
 console.log(tabs=0, 'Test');
 console.log(tabs=1, silent.off=TRUE, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
+}
 
 }
 \keyword{console}

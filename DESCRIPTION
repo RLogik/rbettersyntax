@@ -2,7 +2,7 @@ Package: rbettersyntax
 Title: Simpler Syntax for R
 Version: 1.3.7
 Authors@R: person("R", "Logik", email = "r.bitlogik@gmail.com", role = c("aut", "cre"))
-Author: R Logik
+Author: R Logik [aut, cre]
 Maintainer: R Logik <r.bitlogik@gmail.com>
 Description: Allows syntax, available in normal languages, like Python, PHP, etc.
 Depends: R (>= 3.4.0)
