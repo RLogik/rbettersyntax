@@ -4,8 +4,7 @@
 \alias{install.from.url}
 \title{rbettersyntax | install.from.url}
 \usage{
-install.from.url(pkg.name = NULL, url = NULL, file.type = NULL,
-  install = TRUE, require.pkg = FALSE, force = FALSE)
+\code{install.from.url(pkg.name='...', url='...', file.type='...', install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 }
 \arguments{
 \item{pkg.name}{a character string. Optional. Name of Package, if known. Otherwise, the proceedure extracts this from the downloaded file.}
@@ -22,8 +21,6 @@ install.from.url(pkg.name = NULL, url = NULL, file.type = NULL,
 }
 \description{
 Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
-
-\code{install.from.url(pkg.name='...', url='...', file.type='...', install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 }
 \examples{
 \dontrun{

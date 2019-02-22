@@ -4,7 +4,7 @@
 \alias{read.args}
 \title{rbettersyntax | read.args}
 \usage{
-read.args(vars, ...)
+\code{val <- read.args(args, key, type, defaultval)}
 }
 \arguments{
 \item{args}{Liste of arguments extracted from ... . Usage: inside a function first set \code{args <- list(...);}.}
@@ -17,8 +17,6 @@ read.args(vars, ...)
 }
 \description{
 Allow for simpler syntax in R. Read input arguments from ... with expected type and default values.
-
-\code{val <- read.args(args, key, type, defaultval)}
 }
 \examples{
 \dontrun{

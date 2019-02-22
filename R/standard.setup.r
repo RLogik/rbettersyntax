@@ -1,11 +1,8 @@
+#' @export standard.setup
 #' @title rbettersyntax | standard.setup
-#'
 #' @description Provides standard ok.comma'd functions and enables via option a disabling of menu and sys.pause.
 #'
-#' \code{standard.setup()}
-#' \code{menu(options, title=title)}
-#'
-#' @export standard.setup
+#' @usage \code{standard.setup();}
 #'
 #' @param options character string vector. As per the definition of base::menu
 #'

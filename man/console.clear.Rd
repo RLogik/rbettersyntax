@@ -4,12 +4,10 @@
 \alias{console.clear}
 \title{rbettersyntax | console.clear}
 \usage{
-console.clear()
+\code{console.clear()}
 }
 \description{
 Allow for simpler syntax in R. Clear console.
-
-\code{console.clear()}
 }
 \examples{
 \dontrun{

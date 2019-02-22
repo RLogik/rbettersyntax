@@ -1,14 +1,11 @@
+#' @export get.pkgs
 #' @title rbettersyntax | get.pkgs
-#'
 #' @description Allow for simpler syntax in R. Loads packages. If not available, then an install attempt will be carried out.
 #'
-#' \code{get.pkgs(mirror, pkg1, pkg2, ...)}
-#'
+#' @usage \code{get.pkgs(mirror, pkg1, pkg2, ...)}
 #' @param mirror an integer between 0 and (currently) 94. If set to \code{NULL}, will ask for user input.
 #' @param pkg1 a character string or list. If a character string, then the package \code{pkg1} will be loaded via cran. Otherwise if a list and if \code{mode=github} or \code{mode=biocmanager} is set, then an appropriate alternative will be used.
 #' @param pkg2 similar. User can set 0 or more 
-#'
-#' @export get.pkgs
 #'
 #' @examples \dontrun{
 #'	rbettersyntax::get.pkgs(53, 'tidyverse', list('clusterby', mode='github', lib='RLogik'), list('cow_plot', dep=TRUE))

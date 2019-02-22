@@ -1,10 +1,8 @@
+#' @export console.clear
 #' @title rbettersyntax | console.clear
-#'
 #' @description Allow for simpler syntax in R. Clear console.
 #'
-#' \code{console.clear()}
-#'
-#' @export console.clear
+#' @usage \code{console.clear()}
 #'
 #' @examples \dontrun{
 #'	console.clear();

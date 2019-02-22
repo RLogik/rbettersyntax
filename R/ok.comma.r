@@ -1,13 +1,9 @@
+#' @export ok.comma
 #' @title rbettersyntax | ok.comma
-#'
 #' @description Allow for simpler syntax in R. This method enables trailing commata. Modification of flodel's method.
 #'
-#' \code{f <- ok.comma(f)}
-#' \code{ok.comma.standard()}
-#'
+#' @usage \code{f <- ok.comma(f)}
 #' @param f Function to be modified to allow trailing commas
-#'
-#' @export ok.comma
 #'
 #' @examples \dontrun{
 #'	c <- rbettersyntax::ok.comma(base::c);

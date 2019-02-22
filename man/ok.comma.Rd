@@ -4,16 +4,13 @@
 \alias{ok.comma}
 \title{rbettersyntax | ok.comma}
 \usage{
-ok.comma(f)
+\code{f <- ok.comma(f)}
 }
 \arguments{
 \item{f}{Function to be modified to allow trailing commas}
 }
 \description{
 Allow for simpler syntax in R. This method enables trailing commata. Modification of flodel's method.
-
-\code{f <- ok.comma(f)}
-\code{ok.comma.standard()}
 }
 \examples{
 \dontrun{

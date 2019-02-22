@@ -1,12 +1,9 @@
+#' @export sys.pause
 #' @title rbettersyntax | sys.pause
-#'
 #' @description Allow for simpler syntax in R. Method to pause execution. Use \code{options('rbettersyntax::silent'=TRUE)} to disable all sys.pause commands in e. g. markdown mode.
 #'
-#' \code{sys.pause(* t)}
-#'
+#' @usage \code{sys.pause(* t)}
 #' @param t non-negative double. Argument is optional. If \code{t} is set, then the script will be paused for \code{t} seconds. If it is not set, then a user key-response will be awaited.
-#'
-#' @export sys.pause
 #'
 #' @examples \dontrun{
 #'	sys.pause(); # pause until user presses any key.

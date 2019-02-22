@@ -1,17 +1,14 @@
+#' @export install.from.url
 #' @title rbettersyntax | install.from.url
-#'
 #' @description Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
 #'
-#' \code{install.from.url(pkg.name='...', url='...', file.type='...', install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
-#'
+#' @usage \code{install.from.url(pkg.name='...', url='...', file.type='...', install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 #' @param url a character string. A url.
 #' @param file.type character. Default \code{NULL}. If not set, then system will attempt to determin whether the file is to be extracted and by what method. If set to \code{'zip'}, \code{'gz'}, \code{'7z'}, etc., then an appropriate method will be applied to unpack the downloaded object.
 #' @param install boolean. Default \code{TRUE}. If set to \code{TRUE}, then the package in the downloaded object will be installed, otherwise the path of the downloaded package will be returned.
 #' @param pkg.name a character string. Optional. Name of Package, if known. Otherwise, the proceedure extracts this from the downloaded file.
 #' @param require.pkg boolean. Default \code{FALSE}. If \code{require.pkg=TRUE} and \code{force=FALSE} and \code{pkg.name} is defined, \code{require(pkg.name)} will be called at the start. If it succeeds, no installation will take place. If \code{require.pkg=TRUE}, then \code{require(···)} will be called at the end.
 #' @param force boolean. Defaut \code{FALSE}. If set to \code{FALSE}, determines, whether \code{library(···)} / \code{require(···)} will be attempted first before installation.
-#'
-#' @export install.from.url
 #'
 #' @examples \dontrun{
 #'	rbettersyntax::install.from.url(url='http://domain.de/mypackage.zip?parameters=areok', file.type='zip');

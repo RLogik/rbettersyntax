@@ -4,7 +4,7 @@
 \alias{get.pkgs}
 \title{rbettersyntax | get.pkgs}
 \usage{
-get.pkgs(mirror = NULL, ...)
+\code{get.pkgs(mirror, pkg1, pkg2, ...)}
 }
 \arguments{
 \item{mirror}{an integer between 0 and (currently) 94. If set to \code{NULL}, will ask for user input.}
@@ -15,8 +15,6 @@ get.pkgs(mirror = NULL, ...)
 }
 \description{
 Allow for simpler syntax in R. Loads packages. If not available, then an install attempt will be carried out.
-
-\code{get.pkgs(mirror, pkg1, pkg2, ...)}
 }
 \examples{
 \dontrun{

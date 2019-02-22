@@ -4,7 +4,7 @@
 \alias{console.log}
 \title{rbettersyntax | console.log}
 \usage{
-console.log(...)
+\code{console.log(tabs=tabs, tab.char=tab.char, silent.off=silent.off, m1, m2, ..)}
 }
 \arguments{
 \item{tabs}{a non-negative integer. Default \code{0}. Number of tab sets to be produced on each new line.}
@@ -19,8 +19,6 @@ console.log(...)
 }
 \description{
 Allow for simpler syntax in R. Output messages to console. Use \code{options('rbettersyntax::silent'=TRUE)} to disable console output.
-
-\code{console.log(tabs=tabs, tab.char=tab.char, silent.off=silent.off, m1, m2, ..)}
 }
 \examples{
 \dontrun{
