@@ -1,6 +1,6 @@
-#' @export install.from.url
 #' @title rbettersyntax | install.from.url
 #' @description Allow for simpler syntax in R. Loads packages from URL, potentially unzipping if necessary. By contrast to \code{installr}, the URLs with parameters do not lead to problems.
+#' @export install.from.url
 #'
 #' @usage \code{install.from.url(pkg.name='...', url='...', file.type='...', install=TRUE/FALSE, require.pkg=TRUE/FALSE, force=TRUE/FALSE)}
 #' @param url a character string. A url.

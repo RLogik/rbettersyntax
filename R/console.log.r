@@ -1,6 +1,6 @@
-#' @export console.log
 #' @title rbettersyntax | console.log
 #' @description Allow for simpler syntax in R. Output messages to console. Use \code{options('rbettersyntax::silent'=TRUE)} to disable console output.
+#' @export console.log
 #'
 #' @usage \code{console.log(tabs=tabs, tab.char=tab.char, silent.off=silent.off, m1, m2, ..)}
 #' @param tabs a non-negative integer. Default \code{0}. Number of tab sets to be produced on each new line.

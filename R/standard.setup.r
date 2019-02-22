@@ -1,6 +1,6 @@
-#' @export standard.setup
 #' @title rbettersyntax | standard.setup
 #' @description Provides standard ok.comma'd functions and enables via option a disabling of menu and sys.pause.
+#' @export standard.setup
 #'
 #' @usage \code{standard.setup();}
 #'

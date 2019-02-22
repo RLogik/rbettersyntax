@@ -1,6 +1,6 @@
-#' @export console.clear
 #' @title rbettersyntax | console.clear
 #' @description Allow for simpler syntax in R. Clear console.
+#' @export console.clear
 #'
 #' @usage \code{console.clear()}
 #'

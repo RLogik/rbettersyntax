@@ -1,6 +1,6 @@
-#' @export get.pkgs
 #' @title rbettersyntax | get.pkgs
 #' @description Allow for simpler syntax in R. Loads packages. If not available, then an install attempt will be carried out.
+#' @export get.pkgs
 #'
 #' @usage \code{get.pkgs(mirror, pkg1, pkg2, ...)}
 #' @param mirror an integer between 0 and (currently) 94. If set to \code{NULL}, will ask for user input.
