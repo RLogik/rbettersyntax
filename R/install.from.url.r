@@ -28,7 +28,10 @@
 
 install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TRUE, require.pkg=FALSE, force=FALSE) {
 	## Versuche Package zu laden, solange force=FALSE;
-	if(is.character(pkg.name) && !force && require.pkg) if(base::require(pkg.name, character.only=TRUE)) return(TRUE);
+	if(is.character(pkg.name) && !force && require.pkg) {
+		message(paste0('Attempting to load Package `',pkg.name,'`.'));
+		if(base::require(pkg.name, character.only=TRUE)) return(TRUE);
+	}
 	## Erstelle downloaded_packages-Ordner, falls dies nicht existiert:
 	downloadfolder <- base::file.path(base::tempdir(), 'downloaded_packages');
 	if(!('downloaded_packages' %in% base::list.dirs(path=base::tempdir(), full.names=FALSE, recursive=FALSE))) base::dir.create(downloadfolder);
@@ -99,15 +102,28 @@ install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TR
 		if(install) {
 			## Package-Namen von der Description-Datei zu extrahieren versuchen:
 			descr <- utils::read.delim(file=file.path(pfad, 'DESCRIPTION'), sep=':', head=FALSE, col.names=c('key','value'), stringsAsFactors=FALSE);
-			ind <- which(grepl('Package', descr$key, ignore.case=TRUE));
-			if(length(ind) > 0) pkg.name <- gsub('^\\s*(\\w*).*', '\\1', descr$value[ind[1]]);
-			## Package vom Temp-Ordner installieren:
-			install.packages(pkgs=pfad, repos=NULL, type='soure', dependencies=TRUE);
+			idx <- which(grepl('Package', descr$key, ignore.case=TRUE))[1];
+			if(!is.na(idx)) pkg.name <- gsub('^\\s*(\\w*).*', '\\1', descr$value[idx]);
+			## Versuche ggf. Package zu laden (solange force=FALSE, require.pkg=TRUE und pkg.name ein String):
+			skip_install <- FALSE;
+			if(is.character(pkg.name) && !force && require.pkg) {
+				message(paste0('Attempting to load Package `',pkg.name,'`.'));
+				skip_install <- base::require(pkg.name, character.only=TRUE);
+			}
+			## Package vom Temp-Ordner installieren (außer voriges require erfolgreich durchgeführt):
+			if(!skip_install) {
+				if(is.character(pkg.name)) message(paste0('Attempting to install Package `',pkg.name,'`.'));
+				install.packages(pkgs=pfad, repos=NULL, type='soure', dependencies=TRUE);
+			}
 			base::unlink(tmpdir, recursive=TRUE);
 			## Versuche ggf. Package zu laden:
 			if(require.pkg) {
-				if(!is.character(pkg.name)) return(FALSE);
-				return(base::require(pkg.name, character.only=TRUE));
+				pkg_loaded <- FALSE;
+				if(is.character(pkg.name)) {
+					message(paste0('Attempting to load Package `',pkg.name,'`.'));
+					pkg_loaded <- base::require(pkg.name, character.only=TRUE);
+				}
+				return(pkg_loaded);
 			}
 			invisible(NULL);
 		} else {
