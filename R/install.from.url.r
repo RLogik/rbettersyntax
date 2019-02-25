@@ -118,8 +118,8 @@ install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TR
 			base::unlink(tmpdir, recursive=TRUE);
 			## Versuche ggf. Package zu laden:
 			if(require.pkg) {
-				pkg_loaded <- FALSE;
-				if(is.character(pkg.name)) {
+				pkg_loaded <- skip_install; ## wenn Intall übersprungen wurde, dann wurde Pkg schon geladen.
+				if(!pkg_loaded && is.character(pkg.name)) {
 					message(paste0('Attempting to load Package `',pkg.name,'`.'));
 					pkg_loaded <- base::require(pkg.name, character.only=TRUE);
 				}
