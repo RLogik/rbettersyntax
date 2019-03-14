@@ -1,14 +1,14 @@
 #' @title rbettersyntax | get.pkgs
 #' @description Allow for simpler syntax in R. Loads packages. If not available, then an install attempt will be carried out.
-#' @export get.pkgs
+#' @export load.packages
 #'
-#' @usage \code{get.pkgs(mirror, pkg1, pkg2, ...)}
+#' @usage \code{load.packages(mirror, pkg1, pkg2, ...)}
 #' @param mirror an integer between 0 and (currently) 94. If set to \code{NULL}, will ask for user input.
 #' @param pkg1 a character string or list. If a character string, then the package \code{pkg1} will be loaded via cran. Otherwise if a list and if \code{mode=github} or \code{mode=biocmanager} is set, then an appropriate alternative will be used.
 #' @param pkg2 similar. User can set 0 or more 
 #'
 #' @examples \dontrun{
-#'	rbettersyntax::get.pkgs(53, 'tidyverse', list('clusterby', mode='github', lib='RLogik'), list('cow_plot', dep=TRUE))
+#'	rbettersyntax::load.packages(53, 'tidyverse', list('clusterby', mode='github', lib='RLogik'), list('cow_plot', dep=TRUE))
 #' };
 #'
 #' @keywords syntax load install packages
@@ -16,14 +16,14 @@
 
 
 
-get.pkgs <- function(mirror=NULL, ...) {
+load.packages <- function(mirror=NULL, ...) {
 	args <- as.list(sys.call())[-1L];
 	len <- length(args);
 	if(len > 1L) {
 		last <- args[[len]];
 		if(missing(last)) {
 			args <- args[-len];
-			return(do.call(get.pkgs, args));
+			return(do.call(load.packages, args));
 		}
 	}
 
@@ -32,7 +32,7 @@ get.pkgs <- function(mirror=NULL, ...) {
 	if(is.null(mirror)) {
 		chooseCRANmirror(graphics=FALSE);
 	} else {
-		chooseCRANmirror(mirror, graphics=FALSE);
+		chooseCRANmirror(ind=mirror, graphics=FALSE);
 	}
 
 	for(opt in args) {

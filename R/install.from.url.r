@@ -29,7 +29,7 @@
 install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TRUE, require.pkg=FALSE, force=FALSE) {
 	## Versuche Package zu laden, solange force=FALSE;
 	if(is.character(pkg.name) && !force && require.pkg) {
-		message(paste0('Attempting to load Package `',pkg.name,'`.'));
+		base::message(paste0('Attempting to load Package `',pkg.name,'`.'));
 		if(base::require(pkg.name, character.only=TRUE)) return(TRUE);
 	}
 	## Erstelle downloaded_packages-Ordner, falls dies nicht existiert:
@@ -107,20 +107,20 @@ install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TR
 			## Versuche ggf. Package zu laden (solange force=FALSE, require.pkg=TRUE und pkg.name ein String):
 			skip_install <- FALSE;
 			if(is.character(pkg.name) && !force && require.pkg) {
-				message(paste0('Attempting to load Package `',pkg.name,'`.'));
+				base::message(paste0('Attempting to load Package `',pkg.name,'`.'));
 				skip_install <- base::require(pkg.name, character.only=TRUE);
 			}
 			## Package vom Temp-Ordner installieren (außer voriges require erfolgreich durchgeführt):
 			if(!skip_install) {
-				if(is.character(pkg.name)) message(paste0('Attempting to install Package `',pkg.name,'`.'));
-				install.packages(pkgs=pfad, repos=NULL, type='soure', dependencies=TRUE);
+				if(is.character(pkg.name)) base::message(paste0('Attempting to install Package `',pkg.name,'`.'));
+				install.packages(pkgs=pfad, repos=NULL, type='source', dependencies=TRUE);
 			}
 			base::unlink(tmpdir, recursive=TRUE);
 			## Versuche ggf. Package zu laden:
 			if(require.pkg) {
 				pkg_loaded <- skip_install; ## wenn Intall übersprungen wurde, dann wurde Pkg schon geladen.
 				if(!pkg_loaded && is.character(pkg.name)) {
-					message(paste0('Attempting to load Package `',pkg.name,'`.'));
+					base::message(paste0('Attempting to load Package `',pkg.name,'`.'));
 					pkg_loaded <- base::require(pkg.name, character.only=TRUE);
 				}
 				return(pkg_loaded);

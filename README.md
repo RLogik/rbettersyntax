@@ -25,10 +25,10 @@ console.log('Schritt I wird ausgeführt.'); ## macht nichts
 console.log(silent.off=TRUE,'Schritt I wird ausgeführt.'); ## macht nichts
 ```
 
-## Beispiele: get.pkgs
+## Beispiele: load.packages
 
 ```r
-get.pkgs(53,
+load.packages(53,
 	'tidyverse',
 	list('clusterby', mode='github', lib='RLogik', force=TRUE),
 	list('cowplot', dep=TRUE),

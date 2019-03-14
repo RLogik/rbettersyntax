@@ -2,9 +2,10 @@
 
 export(console.clear)
 export(console.log)
-export(get.pkgs)
 export(install.from.url)
+export(load.packages)
 export(ok.comma)
 export(read.args)
+export(return.multiple)
 export(standard.setup)
 export(sys.pause)
