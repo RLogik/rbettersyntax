@@ -10,11 +10,11 @@ Verschafft Methoden für einfachere Syntax für die Sprache R.
 ## Beispiele: standard.setup
 
 Manchmal will man Konsole-Interaktion mit einem einzigen Befehl im ganzen Code ausschalten.
-Dies wird mittels der `utilsrl::silent`-Option sowie
+Dies wird mittels der `utilsRL::silent`-Option sowie
 der Methode `standard.setup` ermöglicht.
 
 ```r
-options('utilsrl::silent'=TRUE);
+options('utilsRL::silent'=TRUE);
 standard.setup(); # man braucht diese Zeile nur ein Mal im Code, am besten nachdem alle Packages geladen sind.
 
 menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## macht nichts, gibt den Wert 0 zurück.

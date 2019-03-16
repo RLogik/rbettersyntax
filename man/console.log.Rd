@@ -11,14 +11,14 @@
 
 \item{tab.char}{character. Default \code{'  '}. This will be used as the indentation string.}
 
-\item{silent.off}{boolean. Default \code{FALSE}. If true, then no output will be shown under the option \code{'utilsrl::silent'=TRUE}.}
+\item{silent.off}{boolean. Default \code{FALSE}. If true, then no output will be shown under the option \code{'utilsRL::silent'=TRUE}.}
 
 \item{m1}{character string / vector of character strings. The strings will be concatenated with no spaces, prepended by tab stops and followed by a \code{'\n'} character.}
 
 \item{m2}{similar. User can set 0 or more 'messages' to be printed in the console.}
 }
 \description{
-Allow for simpler syntax in R. Output messages to console. Use \code{options('utilsrl::silent'=TRUE)} to disable console output.
+Allow for simpler syntax in R. Output messages to console. Use \code{options('utilsRL::silent'=TRUE)} to disable console output.
 }
 \examples{
 \dontrun{

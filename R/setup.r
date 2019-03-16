@@ -7,7 +7,7 @@
 #' @param options character string vector. As per the definition of base::menu
 #'
 #' @examples \dontrun{
-#'	options('utilsrl::silent'=TRUE);
+#'	options('utilsRL::silent'=TRUE);
 #'	standard.setup();
 #'	# will skip user interaction and return \code{0}:
 #'	menu(c('Yes','No'), title='Proceed with script?');
@@ -17,7 +17,7 @@
 #'	console.log(tabs=0, silent.off=TRUE, 'My message.'); # will not display.
 #'	console.log(tabs=0, silent.off=FALSE, 'My message.'); # will show.
 #'	# reactivates menu, sys.pause, console.log, etc.
-#'	options('utilsrl::silent'=FALSE);
+#'	options('utilsRL::silent'=FALSE);
 #' }
 #'
 #' @keywords syntax rbettersyntax standard setup
@@ -26,7 +26,7 @@ standard.setup <- function() {
 	c <- trailing.comma(base::c);
 	list <- trailing.comma(base::list);
 	menu <- function(...) {
-		rsilent <- getOption('utilsrl::silent');
+		rsilent <- getOption('utilsRL::silent');
 		if(!is.logical(rsilent)) rsilent <- FALSE;
 		if(rsilent) {
 			return(0);

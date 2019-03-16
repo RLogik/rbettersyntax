@@ -69,7 +69,7 @@ timer <- setRefClass('timer',
 		},
 		pause = function(t=NULL) {
 			if(!is.numeric(t)) {
-				rsilent <- getOption('utilsrl::silent');
+				rsilent <- getOption('utilsRL::silent');
 				if(!is.logical(rsilent)) rsilent <- FALSE;
 				if(!rsilent) {
 					message('Paused. Press any key to continue...');
