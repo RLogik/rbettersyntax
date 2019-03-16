@@ -28,12 +28,17 @@ console.log(silent.off=TRUE,'Schritt I wird ausgeführt.'); ## macht nichts
 ## Beispiele: load.packages
 
 ```r
-load.packages(53,
-	'tidyverse',
-	list('clusterby', mode='github', lib='RLogik', force=TRUE),
-	list('cowplot', dep=TRUE),
-	list('GenomicRanges', mode='biocmanager', version='3.5'), # <- ja, ein trailing comma ist erlaubt!
-);
+load.packages(mirror=53, package='tidyverse', force=TRUE);
+load.packages(mirror=53, package=c('tidyverse', 'Matrix'), stoponerror=TRUE, force=TRUE);
+# this will stop:
+load.packages(mirror=53, package=c('tidyverse', 'Motrix', 'cowplot'), stoponerror=TRUE, force=TRUE);
+
+load.packages(package='GenomicRanges', mode='biocmanager', version='3.5', quietly=TRUE);
+
+load.packages(mode='github', package=c('RLogik/clusterby', 'RLogik/rbettersyntax'), dependencies=TRUE);
+load.packages(mode='github', url='https://github.com/RLogik/clusterby/archive/master.zip', file.type='zip', force=TRUE, dependencies=FALSE);
+## require('clusterby') will be tried first, then potentially an install, then a require.
+load.packages(mode='github', package='clusterby', url='https://github.com/RLogik/clusterby/archive/master.zip', file.type='zip', dependencies=TRUE);
 ```
 
 ## Beispiele: install.from.url
@@ -55,13 +60,13 @@ base::unlink(path1, recursive=TRUE);
 base::unlink(path2, recursive=TRUE);
 
 ## Folgende Befehle sind äquivalent und versucht require(···), dann ggf. Installation, dann require(···):
-install.from.url(pkg.name='mypackage', url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE);
-install.from.url(pkg.name='mypackage', url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE, force=FALSE);
+install.from.url(package='mypackage', url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE);
+install.from.url(package='mypackage', url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE, force=FALSE);
 
 ## Folgende Befehle sind äquivalent und erzwingen Installation bevor require(···):
 install.from.url(url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE);
 install.from.url(url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE, force=TRUE);
-install.from.url(pkg.name='mypackage', url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE, force=TRUE);
+install.from.url(package='mypackage', url='http://mydomain.co.uk/repository/mypackage.zip', require.pkg=TRUE, force=TRUE);
 ```
 
 ## Beispiele: console.clear
