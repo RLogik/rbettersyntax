@@ -40,12 +40,12 @@ timer <- setRefClass('timer',
 		},
 		time = function() {
 			t <- as.numeric(base::Sys.time());
-			dt <- t - .self$start();
+			dt <- t - .self$start;
 			return(dt);
 		},
 		duration = function() {
 			t <- as.numeric(base::Sys.time());
-			dt <- t - .self$stop();
+			dt <- t - .self$stop;
 			return(dt);
 		},
 		time.absolute = function() {
