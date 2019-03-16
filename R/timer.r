@@ -28,7 +28,7 @@ timer <- setRefClass('timer',
 	fields = list(
 		start='numeric',
 		stop='numeric',
-		n='integer'
+		n='numeric'
 	),
 	methods = list(
 		initialize = function() {

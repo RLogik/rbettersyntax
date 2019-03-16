@@ -260,6 +260,6 @@ compile.package <- function(path='.', as.test=FALSE) {
 		devtools::document();
 		setwd('..');
 		devtools::install(name);
-		setwd(path);
+		setwd(currdir);
 	}
 };
