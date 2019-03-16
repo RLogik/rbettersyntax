@@ -27,14 +27,14 @@
 timer <- setRefClass('timer',
 	fields = list(
 		start='numeric',
-		stop='numeric',
+		lap='numeric',
 		n='numeric'
 	),
 	methods = list(
 		initialize = function() {
 			t <- .self$time.absolute();
 			.self$start <- t;
-			.self$stop <- t;
+			.self$lap <- t;
 			.self$n <- 0;
 			invisible(NULL);
 		},
@@ -45,7 +45,7 @@ timer <- setRefClass('timer',
 		},
 		duration = function() {
 			t <- as.numeric(base::Sys.time());
-			dt <- t - .self$stop;
+			dt <- t - .self$lap;
 			return(dt);
 		},
 		time.absolute = function() {
@@ -56,14 +56,14 @@ timer <- setRefClass('timer',
 			t <- .self$time.absolute();
 			dt <- t - .self$start;
 			.self$start <- t;
-			.self$stop <- t;
+			.self$lap <- t;
 			.self$n <- 0;
 			return(dt);
 		},
 		stop = function() {
 			t <- .self$time.absolute();
-			dt <- t - .self$stop;
-			.self$stop <- t;
+			dt <- t - .self$lap;
+			.self$lap <- t;
 			.self$n <- .self$n + 1;
 			return(dt);
 		},
