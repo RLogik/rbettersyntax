@@ -48,11 +48,10 @@ load.packages <- function(mode='cran', package=c(), url=c(), mirror=NULL, file.t
 		if(!force && is.character(package_)) if(trypackage(package_, FALSE)) next;
 
 		if(mode == 'github') {
-			nom <- paste(c(lib, package_), collapse='/');a
 			if(is.null(version)) {
-				devtools::install_github(nom, dependencies=dependencies ,force=force);
+				devtools::install_github(package_, dependencies=dependencies ,force=force);
 			} else {
-				devtools::install_github(nom, dependencies=dependencies ,force=force, version=version);
+				devtools::install_github(package_, dependencies=dependencies ,force=force, version=version);
 			}
 		} else if(mode == 'url') {
 			if(!is.character(url_)) next;
