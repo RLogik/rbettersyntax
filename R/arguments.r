@@ -1,19 +1,19 @@
-#' @title ok.comma
+#' @title trailing.comma
 #' @description This method enables trailing commata. Modification of flodel's method.
-#' @export ok.comma
+#' @export trailing.comma
 #'
-#' @usage \code{f <- ok.comma(f)}
+#' @usage \code{f <- trailing.comma(f)}
 #' @param f Function to be modified to allow trailing commas
 #'
 #' @examples \dontrun{
-#'	c <- rbettersyntax::ok.comma(base::c);
-#'	list <- rbettersyntax::ok.comma(base::list);
-#'	myfun <- rbettersyntax::ok.comma(myfun);
+#'	c <- trailing.comma(base::c);
+#'	list <- trailing.comma(base::list);
+#'	myfun <- trailing.comma(myfun);
 #' }
 #'
 #' @keywords syntax trailing comma
 
-ok.comma <- function(f) {
+trailing.comma <- function(f) {
 	FUN <- f;
 	return(function(...) {
 		env <- parent.frame();
@@ -50,7 +50,7 @@ ok.comma <- function(f) {
 #'
 #' @keywords syntax read arguments parameters default value
 
-read.args <- function(vars, ...) {
+read.args <- function(vars, key='', type=NULL, default=NULL) {
 	if(!is.list(vars)) {
 		if(is.vector(vars)) {
 			vars <- as.list(vars);
@@ -59,10 +59,6 @@ read.args <- function(vars, ...) {
 		}
 	}
 	args <- list(...);
-	type <- args$type;
-	defaultval <- args$default;
-	key <- args$key;
-	if(!is.character(key)) key <- '';
 
 	if(!(key %in% names(vars))) return(defaultval);
 	val <- vars[[key]];

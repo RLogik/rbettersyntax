@@ -10,11 +10,11 @@ Verschafft Methoden für einfachere Syntax für die Sprache R.
 ## Beispiele: standard.setup
 
 Manchmal will man Konsole-Interaktion mit einem einzigen Befehl im ganzen Code ausschalten.
-Dies wird mittels der `rbettersyntax::silent`-Option sowie
+Dies wird mittels der `utilsrl::silent`-Option sowie
 der Methode `standard.setup` ermöglicht.
 
 ```r
-options('rbettersyntax::silent'=TRUE);
+options('utilsrl::silent'=TRUE);
 standard.setup(); # man braucht diese Zeile nur ein Mal im Code, am besten nachdem alle Packages geladen sind.
 
 menu(c('Ja','Nein'), title='Willst du fortsetzen?'); ## macht nichts, gibt den Wert 0 zurück.
@@ -80,13 +80,13 @@ console.log(tab.char='  ', silent.off=FALSE, 'Starting code.');
 console.log(tabs=3, 'Starting Method', c('Scanning data set ',k,' for solutions:'));
 ```
 
-## Beispiele: ok.comma
+## Beispiele: trailing.comma
 
 Diese Methode stammt ursprünglich von [**flodel**](https://gist.github.com/flodel/5283216) und wurde von mir leicht modifiziert, um endlose Schleifen zu vermeiden.
 
 ```r
-c <- ok.comma(base::c);
-list <- ok.comma(base::list);
+c <- trailing.comma(base::c);
+list <- trailing.comma(base::list);
 ```
 
 oder einfach:
@@ -110,13 +110,13 @@ names <- c(
 
 schreiben, wie in den meisten Programmiersprachen.
 Damit muss man sich nicht mehr um das sogenannte „trailing comma“ Gedanken machen.
-Man kann auch `ok.comma` bei beliebigen Funktionen einsetzen.
+Man kann auch `trailing.comma` bei beliebigen Funktionen einsetzen.
 
 ```r
 f <- function(x, ...) {
 	## Funktioninhalt
 };
-f <- ok.comma(f);
+f <- trailing.comma(f);
 ```
 
 ## Beispiele: read.args
@@ -131,12 +131,30 @@ f <- function(df, ...) {
 };
 ```
 
-## Beispiele: sys.pause
+## Beispiele: timer
 
 ```r
 ## code...
-sys.pause(); # warte auf Usereingabe!
-sys.pause(0.5); # warte 0.5 Sekunden!
-sys.pause(10); # warte 10 Sekunden!
+uhr <- timer();
+uhr$pause(); # warte auf Usereingabe!
+
+uhr$pause(0.4); # warte 0,4 Sekunden!
+uhr$stop();
+uhr$pause(10); # warte 10 Sekunden!
+
+uhr$time(); # Zeit seit letztem Reset (=10,4 s)
+uhr$duration(); # Zeit seit letztem Stop (=10 s)
+
+uhr$stop();
+uhr$pause(3); # warte 10 Sekunden!
+
+uhr$time(); # Zeit seit letztem Reset (=13,4 s)
+uhr$duration(); # Zeit seit letztem Stop (=3 s)
+
+uhr$reset();
+uhr$pause(5.8); # warte 10 Sekunden!
+
+uhr$time(); # Zeit seit letztem Reset (=5,8 s)
+uhr$duration(); # Zeit seit letztem Stop (=5,8 s)
 ## code...
 ```

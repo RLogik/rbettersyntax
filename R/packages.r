@@ -58,7 +58,7 @@ load.packages <- function(mode='cran', package=c(), url=c(), mirror=NULL, file.t
 			if(!is.character(url_)) next;
 			dep <- dependencies;
 			if(is.logical(dependencies)) if(dependencies) dep <- c('Imports', 'Depends');
-			bool <- rbettersyntax::install.from.url(url=url_, file.type=file.type, install=TRUE, require.pkg=TRUE, force=force);
+			bool <- utilsrl::install.from.url(url=url_, file.type=file.type, install=TRUE, require.pkg=TRUE, force=force);
 			if(!bool) {
 				if(stoponerror) base::stop(paste0('Package von URL {',url_,'} konnte nicht geladen werden!'));
 				base::warning(paste0('Package von URL {',url_,'} konnte nicht geladen werden!'));
@@ -246,8 +246,13 @@ install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TR
 #' @keywords syntax compile package
 
 compile.package <- function(path='.', as.test=FALSE) {
+	if(!require('roxygen2')) {
+		devtools::install_github('klutometis/roxygen');
+		library('roxygen2');
+	}
+
 	if(as.test) {
-		utils::install.packages(pkgs=path, repos=NULL, type='source', dependencies=dependencies);
+		utils::install.packages(pkgs=path, repos=NULL, type='source', dependencies=c('Imports', 'Dependencies'));
 	} else {
 		name <- gsub('.*(\\\\|\\/)', '', path, perl=TRUE);
 		currdir <- getwd();

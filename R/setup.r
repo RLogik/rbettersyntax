@@ -1,5 +1,5 @@
 #' @title standard.setup
-#' @description Provides standard ok.comma'd functions and enables via option a disabling of menu and sys.pause.
+#' @description Provides standard trailing.comma'd functions and enables via option a disabling of menu and sys.pause.
 #' @export standard.setup
 #'
 #' @usage \code{standard.setup();}
@@ -7,7 +7,7 @@
 #' @param options character string vector. As per the definition of base::menu
 #'
 #' @examples \dontrun{
-#'	options('rbettersyntax::silent'=TRUE);
+#'	options('utilsrl::silent'=TRUE);
 #'	standard.setup();
 #'	# will skip user interaction and return \code{0}:
 #'	menu(c('Yes','No'), title='Proceed with script?');
@@ -17,16 +17,16 @@
 #'	console.log(tabs=0, silent.off=TRUE, 'My message.'); # will not display.
 #'	console.log(tabs=0, silent.off=FALSE, 'My message.'); # will show.
 #'	# reactivates menu, sys.pause, console.log, etc.
-#'	options('rbettersyntax::silent'=FALSE);
+#'	options('utilsrl::silent'=FALSE);
 #' }
 #'
 #' @keywords syntax rbettersyntax standard setup
 
 standard.setup <- function() {
-	c <- ok.comma(base::c);
-	list <- ok.comma(base::list);
+	c <- trailing.comma(base::c);
+	list <- trailing.comma(base::list);
 	menu <- function(...) {
-		rsilent <- getOption('rbettersyntax::silent');
+		rsilent <- getOption('utilsrl::silent');
 		if(!is.logical(rsilent)) rsilent <- FALSE;
 		if(rsilent) {
 			return(0);
