@@ -1,4 +1,4 @@
-#' @title rbettersyntax | console.log
+#' @title console.log
 #' @description Allow for simpler syntax in R. Output messages to console. Use \code{options('rbettersyntax::silent'=TRUE)} to disable console output.
 #' @export console.log
 #'
@@ -16,25 +16,38 @@
 #'
 #' @keywords syntax console.log console log
 
-
-
-
-console.log <- function(...) {
-	INPUTARGS <- list(...);
-	silent.off <- INPUTARGS[['silent.off']];
-	if(!is.logical(silent.off)) silent.off <- TRUE;
+console.log <- function(tabs=0, tab.char='  ', silent.off=TRUE, ...) {
+	lines <- list(...);
 	rsilent <-  FALSE;
 	if(silent.off) {
 		rsilent <- getOption('rbettersyntax::silent');
 		if(!is.logical(rsilent)) rsilent <- FALSE;
 	}
 	if(!rsilent) {
-		tabs <- INPUTARGS[['tabs']];
-		if(!is.numeric(tabs)) tabs <- 0;
-		tab.char <- INPUTARGS[['tab.char']]; if(!is.character(tab.char)) tab.char <- '  ';
-		if(is.null(names(INPUTARGS))) names(INPUTARGS) <- rep('', length(INPUTARGS));
-		lines <- INPUTARGS[which(!(names(INPUTARGS) %in% c('tabs','tab.char','silent.off')))];
 		indent <- rep(tab.char, tabs);
-		for(s in lines) cat(c(indent,s,'\n'),sep='');
+		for(s in lines) base::message(paste0(indent,s));
+	}
+};
+
+
+
+
+#' @title console.clear
+#' @description Allow for simpler syntax in R. Clear console.
+#' @export console.clear
+#'
+#' @usage \code{console.clear()}
+#'
+#' @examples \dontrun{
+#'	console.clear();
+#' }
+#'
+#' @keywords syntax console.clear
+
+console.clear <- function() {
+	if(.Platform$OS.type == 'unix') { ## MAC OSX / Linux
+		base::system('clear');
+	} else { ## Windows
+		base::shell('cls');
 	}
 };

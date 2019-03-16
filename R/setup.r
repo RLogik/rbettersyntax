@@ -1,4 +1,4 @@
-#' @title rbettersyntax | standard.setup
+#' @title standard.setup
 #' @description Provides standard ok.comma'd functions and enables via option a disabling of menu and sys.pause.
 #' @export standard.setup
 #'
@@ -21,9 +21,6 @@
 #' }
 #'
 #' @keywords syntax rbettersyntax standard setup
-
-
-
 
 standard.setup <- function() {
 	c <- ok.comma(base::c);
