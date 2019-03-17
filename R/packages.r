@@ -163,19 +163,6 @@ install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TR
 		base::unlink(file);
 		if(is_unpacked) {
 			## Package-Root finden:
-			findDESCRIPTION <- function(p) {
-				if('DESCRIPTION' %in% base::list.files(path=p, full.names=FALSE, recursive=FALSE)) {
-					path <- p;
-				} else {
-					subfolders <- base::list.dirs(path=p, full.names=TRUE, recursive=FALSE);
-					path <- NULL;
-					for(pp in subfolders) {
-						path <- findDESCRIPTION(pp);
-						if(is.character(path)) break;
-					}
-				}
-				return(path);
-			};
 			pfad <- findDESCRIPTION(tmpdir);
 		} else {
 			pfad <- NULL;
@@ -224,6 +211,20 @@ install.from.url <- function(pkg.name=NULL, url=NULL, file.type=NULL, install=TR
 			return(tmpdir);
 		}
 	}
+};
+
+
+findDESCRIPTION <- function(p) {
+	path <- p;
+	if(!('DESCRIPTION' %in% base::list.files(path=p, full.names=FALSE, recursive=FALSE))) {
+		subfolders <- base::list.dirs(path=p, full.names=TRUE, recursive=FALSE);
+		path <- NULL;
+		for(pp in subfolders) {
+			path <- findDESCRIPTION(pp);
+			if(is.character(path)) break;
+		}
+	}
+	return(path);
 };
 
 

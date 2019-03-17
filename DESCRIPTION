@@ -5,10 +5,9 @@ Authors@R: person("R", "Logik", email = "r.bitlogik@gmail.com", role = c("aut", 
 Author: R Logik [aut, cre]
 Maintainer: R Logik <r.bitlogik@gmail.com>
 Description: Allows syntax, available in other languages, like Python, PHP, etc.
-Depends: R (>= 3.4.0)
 License: open source.
 Encoding: UTF-8
-Imports:
+Depends: R (>= 3.4.0),
 	utils,
 	base,
 	devtools
