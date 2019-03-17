@@ -4,7 +4,7 @@
 \alias{load.packages}
 \title{load.packages}
 \usage{
-\code{load.packages(mode=STRING, package=STRING/s, url=STRING/s, mirror=INT, file.type=STRING, dependencies=BOOL/STRINGS, force=BOOL, quietly=BOOL, stoponerror=BOOL, version=STRING)}
+\code{load.packages(mode=STRING, package=STRING/s, url=STRING/s, mirror=INT, force=BOOL, dependencies=BOOL/STRINGS, quietly=BOOL, stoponerror=BOOL, lib=STRING, file.type=STRING, version=STRING)}
 }
 \arguments{
 \item{mode}{one of \code{'cran'} (Default), \code{'url'}, \code{'github'} or \code{'biocmanager'}. Determines how the package will be loaded. If \code{mode='url'} is set, then there setting the \code{package} vector is optional.}
@@ -16,6 +16,8 @@
 \item{mirror}{an integer between 0 and (currently) 94. If not set, will ask for user input, upon the first time that CRAN-sources are loaded.}
 
 \item{file.type}{an optional string, e.g. \code{'zip'} or \code{'gz'}, to be use under \code{mode='url'}, if the downloaded file is to be first unzipped.}
+
+\item{lib}{an optional string, the Git-repository name.}
 
 \item{dependencies}{either \code{TRUE}, \code{FALSE} or a string-vector. A string-vector is only useful in the case of installing under \code{mode='url'}, and in this one may use either boolean values or a subset of \code{c('Depends', 'Imports', 'LinkingTo', 'Suggests', 'Enhances')}.}
 

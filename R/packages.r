@@ -2,17 +2,18 @@
 #' @description Loads packages. If not available, then an install attempt will be carried out.
 #' @export load.packages
 #'
-#' @usage \code{load.packages(mode=STRING, package=STRING/s, url=STRING/s, mirror=INT, file.type=STRING, dependencies=BOOL/STRINGS, force=BOOL, quietly=BOOL, stoponerror=BOOL, version=STRING)}
-#' @param mirror an integer between 0 and (currently) 94. If not set, will ask for user input, upon the first time that CRAN-sources are loaded.
+#' @usage \code{load.packages(mode=STRING, package=STRING/s, url=STRING/s, mirror=INT, force=BOOL, dependencies=BOOL/STRINGS, quietly=BOOL, stoponerror=BOOL, lib=STRING, file.type=STRING, version=STRING)}
+#' @param mode one of \code{'cran'} (Default), \code{'url'}, \code{'github'} or \code{'biocmanager'}. Determines how the package will be loaded. If \code{mode='url'} is set, then there setting the \code{package} vector is optional.
 #' @param package a vector of strings.
 #' @param url a vector of strings. Either \code{package} or \code{url} should be non-empty.
-#' @param mode one of \code{'cran'} (Default), \code{'url'}, \code{'github'} or \code{'biocmanager'}. Determines how the package will be loaded. If \code{mode='url'} is set, then there setting the \code{package} vector is optional.
+#' @param mirror an integer between 0 and (currently) 94. If not set, will ask for user input, upon the first time that CRAN-sources are loaded.
 #' @param force if set \code{TRUE}, will force an installation. If \code{FALSE} (Default), will first attempt to load the package and then install.
-#' @param quietly boolean value to control the verbosity of installers.
-#' @param file.type an optional string, e.g. \code{'zip'} or \code{'gz'}, to be use under \code{mode='url'}, if the downloaded file is to be first unzipped.
-#' @param stoponerror a boolean value (default \code{FALSE}). If set as \code{TRUE}, will stop, if loading any package (after attempting to install it) fails.
-#' @param version a string for package versioning. Useful only under \code{mode='biocmanager'}.
 #' @param dependencies either \code{TRUE}, \code{FALSE} or a string-vector. A string-vector is only useful in the case of installing under \code{mode='url'}, and in this one may use either boolean values or a subset of \code{c('Depends', 'Imports', 'LinkingTo', 'Suggests', 'Enhances')}.
+#' @param quietly boolean value to control the verbosity of installers.
+#' @param stoponerror a boolean value (default \code{FALSE}). If set as \code{TRUE}, will stop, if loading any package (after attempting to install it) fails.
+#' @param lib an optional string, the Git-repository name.
+#' @param file.type an optional string, e.g. \code{'zip'} or \code{'gz'}, to be use under \code{mode='url'}, if the downloaded file is to be first unzipped.
+#' @param version a string for package versioning. Useful only under \code{mode='biocmanager'}.
 #'
 #' @examples \dontrun{
 #'	load.packages(mirror=53, package='tidyverse', force=TRUE);
@@ -27,15 +28,15 @@
 #'
 #' @keywords syntax load install packages
 
-load.packages <- function(mode='cran', package=c(), url=c(), mirror=NULL, file.type=NULL, dependencies=TRUE, force=FALSE, quietly=FALSE, stoponerror=FALSE, version=NULL) {
+load.packages <- function(mode='cran', package=c(), url=c(), mirror=NULL, file.type=NULL, lib=NULL, dependencies=TRUE, force=FALSE, quietly=FALSE, stoponerror=FALSE, version=NULL) {
 	isset_cranmirror <- !is.numeric(mirror) && (base::getOption('repos')[['CRAN']] == '@CRAN@');
 	n <- max(length(package), length(url));
 
 	trypackage <- function(pkg, stoponerror) {
 		if(stoponerror) {
-			base::library(package_, character.only=TRUE);
+			base::library(pkg, character.only=TRUE);
 		} else {
-			return(base::require(package_, character.only=TRUE));
+			return(base::require(pkg, character.only=TRUE));
 		}
 	};
 
@@ -48,11 +49,9 @@ load.packages <- function(mode='cran', package=c(), url=c(), mirror=NULL, file.t
 		if(!force && is.character(package_)) if(trypackage(package_, FALSE)) next;
 
 		if(mode == 'github') {
-			if(is.null(version)) {
-				devtools::install_github(package_, dependencies=dependencies ,force=force);
-			} else {
-				devtools::install_github(package_, dependencies=dependencies ,force=force, version=version);
-			}
+			nom <- package_;
+			if(is.character(lib)) nom <- paste0(lib, nom, sep='/');
+			devtools::install_github(nom, dependencies=dependencies ,force=force);
 		} else if(mode == 'url') {
 			if(!is.character(url_)) next;
 			dep <- dependencies;
