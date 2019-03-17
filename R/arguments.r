@@ -58,7 +58,6 @@ read.args <- function(vars, key='', type=NULL, default=NULL) {
 			vars <- list();
 		}
 	}
-	args <- list(...);
 
 	if(!(key %in% names(vars))) return(defaultval);
 	val <- vars[[key]];
