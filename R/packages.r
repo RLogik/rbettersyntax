@@ -50,7 +50,7 @@ load.packages <- function(mode='cran', package=c(), url=c(), mirror=NULL, file.t
 
 		if(mode == 'github') {
 			nom <- package_;
-			if(is.character(lib)) nom <- paste0(lib, nom, sep='/');
+			if(is.character(lib)) nom <- paste0(c(lib, nom), sep='/');
 			devtools::install_github(nom, dependencies=dependencies ,force=force);
 		} else if(mode == 'url') {
 			if(!is.character(url_)) next;
