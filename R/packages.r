@@ -66,7 +66,7 @@ load.packages <- function(mode='cran', package=c(), url=c(), mirror=NULL, file.t
 			if(is.null(version)) {
 				BiocManager::install(package_, dependencies=dependencies, force=force);
 			} else {
-				BiocManager::install(package_, dependencies=dependencies, force=force, version=ver);
+				BiocManager::install(package_, dependencies=dependencies, force=force, version=version);
 			}
 		} else { # if (mode == 'cran') {
 			if(!isset_cranmirror) utils::chooseCRANmirror(ind=mirror, graphics=FALSE);
