@@ -4,7 +4,7 @@
 \alias{load.packages}
 \title{load.packages}
 \usage{
-\code{load.packages(mode=STRING, package=STRING/s, url=STRING/s, mirror=INT, force=BOOL, dependencies=BOOL/STRINGS, quietly=BOOL, stoponerror=BOOL, lib=STRING, file.type=STRING, version=STRING)}
+\code{load.packages(mode=STRING, package=STRING/s, url=STRING/s, mirror=INT, force=BOOL, dependencies=BOOL/STRINGS, quietly=BOOL, stop.on.error=BOOL, lib=STRING, file.type=STRING, version=STRING)}
 }
 \arguments{
 \item{mode}{one of \code{'cran'} (Default), \code{'url'}, \code{'github'} or \code{'biocmanager'}. Determines how the package will be loaded. If \code{mode='url'} is set, then there setting the \code{package} vector is optional.}
@@ -25,7 +25,7 @@
 
 \item{quietly}{boolean value to control the verbosity of installers.}
 
-\item{stoponerror}{a boolean value (default \code{FALSE}). If set as \code{TRUE}, will stop, if loading any package (after attempting to install it) fails.}
+\item{stop.on.error}{a boolean value (default \code{FALSE}). If set as \code{TRUE}, will stop, if loading any package (after attempting to install it) fails.}
 
 \item{version}{a string for package versioning. Useful only under \code{mode='biocmanager'}.}
 }
@@ -35,8 +35,8 @@ Loads packages. If not available, then an install attempt will be carried out.
 \examples{
 \dontrun{
 load.packages(mirror=53, package='tidyverse', force=TRUE);
-load.packages(mirror=53, package=c('tidyverse', 'Matrix'), stoponerror=TRUE, force=TRUE);
-load.packages(mirror=53, package=c('tidyverse', 'Motrix', 'cowplot'), stoponerror=TRUE, force=TRUE); # this will stop!
+load.packages(mirror=53, package=c('tidyverse', 'Matrix'), stop.on.error=TRUE, force=TRUE);
+load.packages(mirror=53, package=c('tidyverse', 'Motrix', 'cowplot'), stop.on.error=TRUE, force=TRUE); # this will stop!
 load.packages(mode='github', package=c('RLogik/clusterby', 'RLogik/rbettersyntax'), dependencies=TRUE);
 load.packages(mode='github', url='https://github.com/RLogik/clusterby/archive/master.zip', file.type='zip', force=TRUE, dependencies=FALSE);
 

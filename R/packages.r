@@ -2,7 +2,7 @@
 #' @description Loads packages. If not available, then an install attempt will be carried out.
 #' @export load.packages
 #'
-#' @usage \code{load.packages(mode=STRING, package=STRING/s, url=STRING/s, mirror=INT, force=BOOL, dependencies=BOOL/STRINGS, quietly=BOOL, stoponerror=BOOL, lib=STRING, file.type=STRING, version=STRING)}
+#' @usage \code{load.packages(mode=STRING, package=STRING/s, url=STRING/s, mirror=INT, force=BOOL, dependencies=BOOL/STRINGS, quietly=BOOL, stop.on.error=BOOL, lib=STRING, file.type=STRING, version=STRING)}
 #' @param mode one of \code{'cran'} (Default), \code{'url'}, \code{'github'} or \code{'biocmanager'}. Determines how the package will be loaded. If \code{mode='url'} is set, then there setting the \code{package} vector is optional.
 #' @param package a vector of strings.
 #' @param url a vector of strings. Either \code{package} or \code{url} should be non-empty.
@@ -10,15 +10,15 @@
 #' @param force if set \code{TRUE}, will force an installation. If \code{FALSE} (Default), will first attempt to load the package and then install.
 #' @param dependencies either \code{TRUE}, \code{FALSE} or a string-vector. A string-vector is only useful in the case of installing under \code{mode='url'}, and in this one may use either boolean values or a subset of \code{c('Depends', 'Imports', 'LinkingTo', 'Suggests', 'Enhances')}.
 #' @param quietly boolean value to control the verbosity of installers.
-#' @param stoponerror a boolean value (default \code{FALSE}). If set as \code{TRUE}, will stop, if loading any package (after attempting to install it) fails.
+#' @param stop.on.error a boolean value (default \code{FALSE}). If set as \code{TRUE}, will stop, if loading any package (after attempting to install it) fails.
 #' @param lib an optional string, the Git-repository name.
 #' @param file.type an optional string, e.g. \code{'zip'} or \code{'gz'}, to be use under \code{mode='url'}, if the downloaded file is to be first unzipped.
 #' @param version a string for package versioning. Useful only under \code{mode='biocmanager'}.
 #'
 #' @examples \dontrun{
 #'	load.packages(mirror=53, package='tidyverse', force=TRUE);
-#'	load.packages(mirror=53, package=c('tidyverse', 'Matrix'), stoponerror=TRUE, force=TRUE);
-#'	load.packages(mirror=53, package=c('tidyverse', 'Motrix', 'cowplot'), stoponerror=TRUE, force=TRUE); # this will stop!
+#'	load.packages(mirror=53, package=c('tidyverse', 'Matrix'), stop.on.error=TRUE, force=TRUE);
+#'	load.packages(mirror=53, package=c('tidyverse', 'Motrix', 'cowplot'), stop.on.error=TRUE, force=TRUE); # this will stop!
 #'	load.packages(mode='github', package=c('RLogik/clusterby', 'RLogik/rbettersyntax'), dependencies=TRUE);
 #'	load.packages(mode='github', url='https://github.com/RLogik/clusterby/archive/master.zip', file.type='zip', force=TRUE, dependencies=FALSE);
 #'
@@ -28,12 +28,24 @@
 #'
 #' @keywords syntax load install packages
 
-load.packages <- function(mode='cran', package=c(), url=c(), mirror=NULL, file.type=NULL, lib=NULL, dependencies=TRUE, force=FALSE, quietly=FALSE, stoponerror=FALSE, version=NULL) {
+load.packages <- function(
+	mode='cran',
+	package=c(),
+	url=c(),
+	mirror=NULL,
+	file.type=NULL,
+	lib=NULL,
+	dependencies=TRUE,
+	force=FALSE,
+	quietly=FALSE,
+	stop.on.error=FALSE,
+	version=NULL
+) {
 	isset_cranmirror <- !is.numeric(mirror) && (base::getOption('repos')[['CRAN']] == '@CRAN@');
 	n <- max(length(package), length(url));
 
-	trypackage <- function(pkg, stoponerror) {
-		if(stoponerror) {
+	trypackage <- function(pkg, stop.on.error) {
+		if(stop.on.error) {
 			base::library(pkg, character.only=TRUE);
 		} else {
 			return(base::require(pkg, character.only=TRUE));
@@ -58,7 +70,7 @@ load.packages <- function(mode='cran', package=c(), url=c(), mirror=NULL, file.t
 			if(is.logical(dependencies)) if(dependencies) dep <- c('Imports', 'Depends');
 			bool <- utilsRL::install.from.url(url=url_, file.type=file.type, install=TRUE, require.pkg=TRUE, force=force);
 			if(!bool) {
-				if(stoponerror) base::stop(paste0('Package von URL {',url_,'} konnte nicht geladen werden!'));
+				if(stop.on.error) base::stop(paste0('Package von URL {',url_,'} konnte nicht geladen werden!'));
 				base::warning(paste0('Package von URL {',url_,'} konnte nicht geladen werden!'));
 			}
 			next;
@@ -75,7 +87,7 @@ load.packages <- function(mode='cran', package=c(), url=c(), mirror=NULL, file.t
 		}
 
 		## versuche Package zu laden:
-		if(!(mode=='url') && trypackage(package_, stoponerror)) next;
+		if(!(mode=='url') && trypackage(package_, stop.on.error)) next;
 		base::warning('Package ',package_,' konnte nicht geladen werden!');
 	}
 

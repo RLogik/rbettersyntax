@@ -39,3 +39,48 @@ standard.setup <- function() {
 
 	for(obj in ls(all=TRUE)) assign(obj, get(obj, envir=environment()), .GlobalEnv);
 };
+
+
+
+
+#' @title this.dir
+#' @description Change the current directory (for RStudio).
+#' @export this.dir
+#'
+#' @usage \code{this.dir(chdir=<BOOL>);}
+#'
+#' @param chdir boolean. Default \code{chdir=TRUE}. Whether or not to change directory to location of current script, or simply return the path.
+#'
+#' @examples \dontrun{
+#'	# Prefix script with:
+#'	bool <- this.dir();
+#'	# or
+#'	bool <- this.dir(chdir=TRUE);
+#'	# to change to current directory.
+#'	# Return value: bool = TRUE <==> succesfully found currently and changed to this path.
+#'
+#'	path <- this.dir(chdir=TRUE);
+#'	# does not change directory, but attempts to get
+#'	# the folder location of current script.
+#'	# If unsuccessful, returns path = NULL.
+#' }
+#'
+#' @keywords syntax change direcctory RStudio
+
+this.dir <- function(chdir=TRUE) {
+	path <- NULL;
+	for(fm in base::sys.frames()) {
+		if('ofile' %in% base::names(fm)) {
+			path <- base::dirname(fm$ofile);
+			break;
+		}
+	}
+	if(chdir) {
+		if(is.character(path)) {
+			setwd(path);
+			return(TRUE);
+		}
+		return(FALSE);
+	}
+	return(path);
+};
