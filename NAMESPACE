@@ -3,6 +3,7 @@
 export(compile.package)
 export(console.clear)
 export(console.log)
+export(exec.code)
 export(install.from.url)
 export(load.packages)
 export(read.args)

@@ -1,6 +1,6 @@
 Package: utilsRL
 Title: Simpler Syntax for R
-Version: 1.5.0
+Version: 1.5.1
 Authors@R: person("R", "Logik", email = "r.bitlogik@gmail.com", role = c("aut", "cre"))
 Author: R Logik [aut, cre]
 Maintainer: R Logik <r.bitlogik@gmail.com>

@@ -28,6 +28,8 @@ timer <- setRefClass('timer',
 	fields = list(
 		start='numeric',
 		lap='numeric',
+		wait='numeric',
+		period='numeric',
 		n='numeric'
 	),
 	methods = list(
@@ -36,6 +38,8 @@ timer <- setRefClass('timer',
 			.self$start <- t;
 			.self$lap <- t;
 			.self$n <- 0;
+			.self$period <- 0;
+			.self$wait <- -Inf;
 			invisible(NULL);
 		},
 		time = function() {
@@ -47,6 +51,18 @@ timer <- setRefClass('timer',
 			t <- as.numeric(base::Sys.time());
 			dt <- t - .self$lap;
 			return(dt);
+		},
+		timer = function(T) {
+			if(!is.numeric(T)) T <- 0;
+			if(T < 0) T <- 0;
+			.self$period <- T;
+			.self$wait <- T + as.numeric(base::Sys.time());
+		},
+		check.timer = function(rep=FALSE) {
+			t <- as.numeric(base::Sys.time());
+			if(!(t >= .self$wait)) return(FALSE)
+			if(rep) .self$wait <- .self$period + t;
+			return(TRUE);
 		},
 		time.absolute = function() {
 			t <- as.numeric(base::Sys.time());
