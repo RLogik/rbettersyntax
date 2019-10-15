@@ -47,6 +47,7 @@ load.packages <- function(
 	trypackage <- function(pkg, stop.on.error) {
 		if(stop.on.error) {
 			base::library(pkg, character.only=TRUE);
+			return(TRUE);
 		} else {
 			return(base::require(pkg, character.only=TRUE));
 		}
